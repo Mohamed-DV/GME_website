@@ -130,14 +130,14 @@ section{padding:5rem 0}
 
 /* VEHICLES */
 #vehicles{background:var(--black-2)}
-.vehicles-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.5rem;margin-top:3rem}
-.vehicle-card{background:var(--black-3);border:1px solid rgba(255,255,255,.06);border-radius:4px;padding:2rem 1.5rem;text-align:center;transition:all .4s;cursor:default;position:relative;overflow:hidden}
-.vehicle-card::before{content:'';position:absolute;inset:0;background:var(--red);transform:translateY(100%);transition:transform .4s ease;z-index:0}
-.vehicle-card:hover{transform:translateY(-4px);border-color:var(--red)}
-.vehicle-card:hover::before{transform:translateY(0)}
-.vehicle-card>*{position:relative;z-index:1}
-.vehicle-icon{font-size:3rem;margin-bottom:1rem;display:block}
-.vehicle-name{font-family:var(--font-heading);font-size:1.1rem;font-weight:700;text-transform:uppercase;letter-spacing:2px}
+.vehicles-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;margin-top:3rem}
+.vehicle-card{background:var(--black-3);border:1px solid rgba(255,255,255,.06);border-radius:4px;overflow:hidden;transition:all .4s;cursor:default;position:relative}
+.vehicle-card:hover{transform:translateY(-4px);border-color:rgba(232,25,44,.35);box-shadow:0 16px 40px rgba(0,0,0,.5)}
+.vehicle-img{width:100%;height:190px;overflow:hidden;position:relative}
+.vehicle-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;display:block}
+.vehicle-card:hover .vehicle-img img{transform:scale(1.06)}
+.vehicle-img::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(8,8,8,.75) 100%);pointer-events:none}
+.vehicle-name{font-family:var(--font-heading);font-size:1.05rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;padding:1rem 1.25rem;text-align:center}
 
 /* WHY */
 #why{background:var(--black)}
@@ -202,9 +202,11 @@ section{padding:5rem 0}
 .social-btn.facebook:hover{background:#1877F2;color:#fff}
 .social-btn.instagram{background:rgba(225,48,108,.1);border-color:rgba(225,48,108,.3);color:#E1306C}
 .social-btn.instagram:hover{background:#E1306C;color:#fff}
-.map-placeholder{width:100%;aspect-ratio:4/3;background:var(--black-3);border-radius:4px;border:1px solid rgba(255,255,255,.06);overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center}
-.map-placeholder::before{content:'📍';font-size:3rem;position:absolute;top:50%;left:50%;transform:translate(-50%,-60%)}
-.map-placeholder-text{font-family:var(--font-heading);font-size:.85rem;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);position:absolute;bottom:2rem;text-align:center}
+.map-placeholder{width:100%;aspect-ratio:4/3;background:var(--black-3);border-radius:4px;border:1px solid rgba(255,255,255,.06);overflow:hidden;position:relative}
+.map-placeholder iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.map-mapbtn{position:absolute;bottom:1rem;right:1rem;z-index:2;background:var(--red);color:#fff;font-family:var(--font-heading);font-size:.8rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:.6rem 1.5rem;border-radius:2px;transition:all .3s}
+.map-mapbtn:hover{background:var(--red-dark);transform:translateY(-1px)}
+body[dir="rtl"] .map-mapbtn{right:auto;left:1rem}
 .map-grid-lines{position:absolute;inset:0;opacity:.05;background-image:linear-gradient(var(--red) 1px,transparent 1px),linear-gradient(90deg,var(--red) 1px,transparent 1px);background-size:40px 40px}
 
 /* FOOTER */
@@ -298,7 +300,10 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);paddin
 .piece-badge.promo{background:var(--gold);color:#111}
 .piece-badge.stock{background:rgba(0,200,100,.15);border:1px solid rgba(0,200,100,.4);color:#00C864}
 .piece-img{width:100%;height:160px;display:flex;align-items:center;justify-content:center;background:var(--black-4);border-bottom:1px solid rgba(255,255,255,.05);position:relative;overflow:hidden}
+.piece-img img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;z-index:0}
+.piece-img.has-photo::after{z-index:1}
 .piece-img::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(0,0,0,.3) 100%)}
+.piece-img.voiture-img{height:200px}
 .piece-body{padding:1.25rem}
 .piece-marque{font-family:var(--font-heading);font-size:.75rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:.3rem}
 .piece-name{font-family:var(--font-heading);font-size:1rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.3rem;line-height:1.3}
@@ -442,7 +447,7 @@ body[dir="rtl"] .lang-btn{font-family:var(--font-arabic);letter-spacing:0;text-t
     </div>
     <div class="stat-divider"></div>
     <div class="stat-item">
-      <div class="stat-number"><span>Tous</span></div>
+      <div class="stat-number"><span data-i18n="hero.stat3val">Tous</span></div>
       <div class="stat-label" data-i18n="hero.stat3">Types de Véhicules</div>
     </div>
   </div>
@@ -457,17 +462,17 @@ body[dir="rtl"] .lang-btn{font-family:var(--font-arabic);letter-spacing:0;text-t
     <span data-i18n="marq.4">Pièces de Rechange</span><span class="dot">◆</span>
     <span data-i18n="marq.5">Suppression EGR/FAP</span><span class="dot">◆</span>
     <span data-i18n="marq.6">Programmation ECU</span><span class="dot">◆</span>
-    <span>Bus & Camions</span><span class="dot">◆</span>
+    <span data-i18n="marq.7">Bus & Camions</span><span class="dot">◆</span>
     <span data-i18n="marq.8">AdBlue</span><span class="dot">◆</span>
     <!-- repeat for infinite scroll -->
-    <span>Diagnostic Automobile</span><span class="dot">◆</span>
-    <span>Électromécanique</span><span class="dot">◆</span>
-    <span>Boîte Automatique</span><span class="dot">◆</span>
-    <span>Pièces de Rechange</span><span class="dot">◆</span>
-    <span>Suppression EGR/FAP</span><span class="dot">◆</span>
-    <span>Programmation ECU</span><span class="dot">◆</span>
-    <span>Bus & Camions</span><span class="dot">◆</span>
-    <span>AdBlue</span><span class="dot">◆</span>
+    <span data-i18n="marq.1">Diagnostic Automobile</span><span class="dot">◆</span>
+    <span data-i18n="marq.2">Électromécanique</span><span class="dot">◆</span>
+    <span data-i18n="marq.3">Boîte Automatique</span><span class="dot">◆</span>
+    <span data-i18n="marq.4">Pièces de Rechange</span><span class="dot">◆</span>
+    <span data-i18n="marq.5">Suppression EGR/FAP</span><span class="dot">◆</span>
+    <span data-i18n="marq.6">Programmation ECU</span><span class="dot">◆</span>
+    <span data-i18n="marq.7">Bus & Camions</span><span class="dot">◆</span>
+    <span data-i18n="marq.8">AdBlue</span><span class="dot">◆</span>
   </div>
 </div>
 
@@ -538,7 +543,7 @@ body[dir="rtl"] .lang-btn{font-family:var(--font-arabic);letter-spacing:0;text-t
             <text x="60" y="165" text-anchor="middle" font-family="monospace" font-size="6" fill="rgba(0,200,100,0.5)">ECU LINK ✓</text>
           </svg>
         </div>
-        <div class="about-badge"><span class="num">10+</span>Ans<br>d'Excellence</div>
+        <div class="about-badge" data-i18n-html="about.badgeHtml"><span class="num">10+</span>Ans<br>d'Excellence</div>
       </div>
       <div class="about-content reveal-right">
         <span class="section-tag" data-i18n="about.tag">À Propos de GME</span>
@@ -584,78 +589,7 @@ body[dir="rtl"] .lang-btn{font-family:var(--font-arabic);letter-spacing:0;text-t
       <div class="divider"></div>
       <p class="section-subtitle" data-i18n="svc.desc">De la simple vidange au diagnostic électronique complexe, GME couvre l'ensemble de vos besoins automobiles.</p>
     </div>
-    <div class="services-grid">
-      <div class="service-card reveal" style="transition-delay:.05s">
-        <div class="svc-icon">🔍</div>
-        <div class="svc-title">Diagnostic Automobile</div>
-        <div class="svc-desc">Lecture et analyse complète des codes défauts, diagnostic multi-marques avec outils professionnels.</div>
-      </div>
-      <div class="service-card reveal" style="transition-delay:.1s">
-        <div class="svc-icon">⚡</div>
-        <div class="svc-title">Électromécanique</div>
-        <div class="svc-desc">Réparation et maintenance de tous les systèmes électromécaniques de votre véhicule.</div>
-      </div>
-      <div class="service-card reveal" style="transition-delay:.15s">
-        <div class="svc-icon">🔩</div>
-        <div class="svc-title">Boîte Manuelle</div>
-        <div class="svc-desc">Révision, réparation et remplacement de boîtes de vitesses manuelles toutes marques.</div>
-      </div>
-      <div class="service-card reveal" style="transition-delay:.2s">
-        <div class="svc-icon">🤖</div>
-        <div class="svc-title">Boîte Automatique</div>
-        <div class="svc-desc">Spécialistes des boîtes automatiques, DSG, CVT — réparation et reconditionnement.</div>
-      </div>
-      <div class="service-card reveal" style="transition-delay:.25s">
-        <div class="svc-icon">💾</div>
-        <div class="svc-title">Prog. Calculateur</div>
-        <div class="svc-desc">Programmation, remapping et remplacement d'ECU / calculateurs électroniques.</div>
-      </div>
-      <div class="service-card reveal" style="transition-delay:.3s">
-        <div class="svc-icon">🔌</div>
-        <div class="svc-title">Cartes Électroniques</div>
-        <div class="svc-desc">Réparation de cartes électroniques : BSI, BCM, tableau de bord, modules divers.</div>
-      </div>
-      <div class="service-card reveal" style="transition-delay:.35s">
-        <div class="svc-icon">🛒</div>
-        <div class="svc-title">Pièces de Rechange</div>
-        <div class="svc-desc">Vente de pièces d'origine et équivalentes pour toutes marques et modèles.</div>
-      </div>
-      <div class="service-card reveal" style="transition-delay:.4s">
-        <div class="svc-icon">♻️</div>
-        <div class="svc-title">Ferraille Automobile</div>
-        <div class="svc-desc">Achat et vente de pièces d'occasion, ferraille et véhicules hors d'usage.</div>
-      </div>
-      <div class="service-card reveal" style="transition-delay:.45s">
-        <div class="svc-icon">🏭</div>
-        <div class="svc-title">Suppression EGR</div>
-        <div class="svc-desc">Désactivation et suppression des vannes EGR pour améliorer les performances.</div>
-      </div>
-      <div class="service-card reveal" style="transition-delay:.5s">
-        <div class="svc-icon">💨</div>
-        <div class="svc-title">Suppression FAP</div>
-        <div class="svc-desc">Suppression logicielle et physique des filtres à particules FAP/DPF.</div>
-      </div>
-      <div class="service-card reveal" style="transition-delay:.55s">
-        <div class="svc-icon">🌿</div>
-        <div class="svc-title">AdBlue</div>
-        <div class="svc-desc">Solutions AdBlue : recharge, suppression et reprogrammation pour poids lourds et VP.</div>
-      </div>
-      <div class="service-card reveal" style="transition-delay:.6s">
-        <div class="svc-icon">🚘</div>
-        <div class="svc-title">Voitures Neuf / Occasion</div>
-        <div class="svc-desc">Vente de véhicules neufs et d'occasion avec inspection technique complète.</div>
-      </div>
-      <div class="service-card reveal" style="transition-delay:.65s">
-        <div class="svc-icon">🚌</div>
-        <div class="svc-title">Bus & Camions</div>
-        <div class="svc-desc">Services spécialisés pour poids lourds, bus, minibus et véhicules utilitaires.</div>
-      </div>
-      <div class="service-card reveal" style="transition-delay:.7s">
-        <div class="svc-icon">🛠️</div>
-        <div class="svc-title">Assistance Technique</div>
-        <div class="svc-desc">Conseil et assistance technique pour professionnels et flottes d'entreprise.</div>
-      </div>
-    </div>
+    <div class="services-grid" id="servicesGrid"></div>
   </div>
 </section>
 
@@ -666,30 +600,9 @@ body[dir="rtl"] .lang-btn{font-family:var(--font-arabic);letter-spacing:0;text-t
       <span class="section-tag" data-i18n="veh.tag">Véhicules Pris en Charge</span>
       <h2 class="section-title" data-i18n-html="veh.title">Tous Types de<br><span>Véhicules</span></h2>
       <div class="divider" style="margin:1.5rem auto"></div>
-      <p class="section-subtitle" style="margin:0 auto">Que vous conduisiez une citadine, un SUV, un camion ou un bus, GME dispose des équipements et compétences adaptés.</p>
+      <p class="section-subtitle" style="margin:0 auto" data-i18n="veh.desc">Que vous conduisiez une citadine, un SUV, un 4×4 ou une caravane, GME dispose des équipements et compétences adaptés.</p>
     </div>
-    <div class="vehicles-grid">
-      <div class="vehicle-card reveal" style="transition-delay:.1s">
-        <span class="vehicle-icon">🚗</span>
-        <div class="vehicle-name">Voitures</div>
-      </div>
-      <div class="vehicle-card reveal" style="transition-delay:.2s">
-        <span class="vehicle-icon">🚙</span>
-        <div class="vehicle-name">SUV & 4×4</div>
-      </div>
-      <div class="vehicle-card reveal" style="transition-delay:.3s">
-        <span class="vehicle-icon">🚚</span>
-        <div class="vehicle-name">Camions</div>
-      </div>
-      <div class="vehicle-card reveal" style="transition-delay:.4s">
-        <span class="vehicle-icon">🚌</span>
-        <div class="vehicle-name">Bus</div>
-      </div>
-      <div class="vehicle-card reveal" style="transition-delay:.5s">
-        <span class="vehicle-icon">🚐</span>
-        <div class="vehicle-name">Utilitaires</div>
-      </div>
-    </div>
+    <div class="vehicles-grid" id="vehiclesGrid"></div>
   </div>
 </section>
 
@@ -701,33 +614,7 @@ body[dir="rtl"] .lang-btn{font-family:var(--font-arabic);letter-spacing:0;text-t
       <h2 class="section-title" data-i18n-html="why.title">Votre Confiance,<br>Notre <span>Engagement</span></h2>
       <div class="divider" style="margin:1.5rem auto"></div>
     </div>
-    <div class="why-grid">
-      <div class="why-item reveal" style="transition-delay:.1s">
-        <div class="why-icon">👨‍🔧</div>
-        <div class="why-title">Techniciens Experts</div>
-        <div class="why-desc">Équipe qualifiée avec des années d'expérience sur toutes les marques</div>
-      </div>
-      <div class="why-item reveal" style="transition-delay:.2s">
-        <div class="why-icon">💻</div>
-        <div class="why-title">Équipements Modernes</div>
-        <div class="why-desc">Outils de diagnostic et d'intervention de dernière génération</div>
-      </div>
-      <div class="why-item reveal" style="transition-delay:.3s">
-        <div class="why-icon">⚡</div>
-        <div class="why-title">Service Rapide</div>
-        <div class="why-desc">Délais optimisés pour vous remettre sur la route le plus vite possible</div>
-      </div>
-      <div class="why-item reveal" style="transition-delay:.4s">
-        <div class="why-icon">✅</div>
-        <div class="why-title">Pièces d'Origine</div>
-        <div class="why-desc">Stock de pièces certifiées pour garantir la qualité des réparations</div>
-      </div>
-      <div class="why-item reveal" style="transition-delay:.5s">
-        <div class="why-icon">💰</div>
-        <div class="why-title">Prix Compétitifs</div>
-        <div class="why-desc">Tarification transparente et juste, sans surprise sur votre facture</div>
-      </div>
-    </div>
+    <div class="why-grid" id="whyGrid"></div>
   </div>
 </section>
 
@@ -853,7 +740,7 @@ body[dir="rtl"] .lang-btn{font-family:var(--font-arabic);letter-spacing:0;text-t
             </g>
             <text x="100" y="152" text-anchor="middle" font-family="Rajdhani" font-size="10" font-weight="600" letter-spacing="2" fill="rgba(255,255,255,0.2)">CAMIONS & BUS</text>
           </svg>
-          <div class="gallery-overlay"><span class="gallery-overlay-text">Poids Lourds</span></div>
+          <div class="gallery-overlay"><span class="gallery-overlay-text" data-i18n="gal.img5">Poids Lourds</span></div>
         </div>
       </div>
     </div>
@@ -864,7 +751,7 @@ body[dir="rtl"] .lang-btn{font-family:var(--font-arabic);letter-spacing:0;text-t
 <section id="boutique" class="metal-section">
   <div class="container">
     <div class="services-intro reveal">
-      <span class="section-tag">Boutique</span>
+      <span class="section-tag" data-i18n="shop.tag">Boutique</span>
       <h2 class="section-title" data-i18n-html="shop.title">Pièces de <span>Rechange</span><br>& Accessoires</h2>
       <div class="divider"></div>
       <p class="section-subtitle" data-i18n="shop.desc">Stock complet de pièces d'origine et équivalentes — toutes marques, meilleurs prix. Contactez-nous sur WhatsApp pour commander ou vérifier la disponibilité.</p>
@@ -879,20 +766,18 @@ body[dir="rtl"] .lang-btn{font-family:var(--font-arabic);letter-spacing:0;text-t
         <button class="filter-tab" data-cat="freinage">Freinage</button>
         <button class="filter-tab" data-cat="boite">Boîte</button>
         <button class="filter-tab" data-cat="electricite">Électricité</button>
-        <button class="filter-tab" data-cat="filtres">Filtres</button>
-        <button class="filter-tab" data-cat="suspension">Suspension</button>
-        <button class="filter-tab" data-cat="carrosserie">Carrosserie</button>
+        <button class="filter-tab" data-cat="voitures">Voitures</button>
       </div>
     </div>
 
     <!-- GRID -->
     <div class="pieces-grid reveal" id="piecesGrid"></div>
-    <div class="pieces-empty" id="piecesEmpty">Aucune pièce trouvée pour cette recherche.</div>
+    <div class="pieces-empty" id="piecesEmpty" data-i18n="shop.empty">Aucune pièce trouvée pour cette recherche.</div>
 
     <!-- WA BAR -->
     <div class="whatsapp-cta-bar reveal">
       <p data-i18n-html="shop.wabar">Vous ne trouvez pas la pièce qu'il vous faut ? <span>Contactez-nous directement</span> — nous sourçons toutes les pièces introuvables.</p>
-      <a href="https://wa.me/212XXXXXXXXX?text=Bonjour%20GME%2C%20je%20cherche%20une%20pi%C3%A8ce%20de%20rechange%20et%20j%27aurais%20besoin%20de%20votre%20aide." target="_blank" class="btn-primary" style="white-space:nowrap">📲 Demander sur WhatsApp</a>
+      <a href="https://wa.me/212XXXXXXXXX?text=Bonjour%20GME%2C%20je%20cherche%20une%20pi%C3%A8ce%20de%20rechange%20et%20j%27aurais%20besoin%20de%20votre%20aide." target="_blank" class="btn-primary" style="white-space:nowrap" data-i18n="shop.wacta">📲 Demander sur WhatsApp</a>
     </div>
   </div>
 </section>
@@ -906,74 +791,7 @@ body[dir="rtl"] .lang-btn{font-family:var(--font-arabic);letter-spacing:0;text-t
       <div class="divider"></div>
     </div>
     <div class="reviews-slider reveal">
-      <div class="reviews-track" id="reviewsTrack">
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <div class="review-text">Service impeccable ! Ma boîte automatique réparée en un temps record. Techniciens très professionnels qui expliquent chaque étape du travail. Je recommande vivement GME.</div>
-          <div class="review-author">
-            <div class="review-avatar">KA</div>
-            <div>
-              <div class="review-name">Karim Alaoui</div>
-              <div class="review-role">Client Fidèle — BMW X5</div>
-            </div>
-          </div>
-        </div>
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <div class="review-text">Diagnostic précis sur mon camion qui avait des problèmes récurrents. L'équipe de GME a trouvé la panne que d'autres garages n'avaient pas pu identifier. Excellent travail.</div>
-          <div class="review-author">
-            <div class="review-avatar">MO</div>
-            <div>
-              <div class="review-name">Mohamed Ouali</div>
-              <div class="review-role">Transporteur — Flotte Camions</div>
-            </div>
-          </div>
-        </div>
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <div class="review-text">Très satisfait de la suppression EGR et de la reprogrammation du calculateur. Mon Peugeot 308 HDi tourne beaucoup mieux maintenant. Prix juste et délai respecté.</div>
-          <div class="review-author">
-            <div class="review-avatar">YB</div>
-            <div>
-              <div class="review-name">Youssef Benhammou</div>
-              <div class="review-role">Client — Peugeot 308</div>
-            </div>
-          </div>
-        </div>
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <div class="review-text">J'achète régulièrement mes pièces de rechange chez GME. Large stock, pièces de qualité, personnel compétent qui conseille bien. Le meilleur endroit pour les pièces auto au Maroc.</div>
-          <div class="review-author">
-            <div class="review-avatar">NZ</div>
-            <div>
-              <div class="review-name">Nadia Zouiten</div>
-              <div class="review-role">Mécanicienne Indépendante</div>
-            </div>
-          </div>
-        </div>
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <div class="review-text">Réparation carte électronique BSI de ma Citroën C4 parfaitement effectuée. Économie importante par rapport à un remplacement neuf. GME maîtrise vraiment l'électronique auto.</div>
-          <div class="review-author">
-            <div class="review-avatar">HA</div>
-            <div>
-              <div class="review-name">Hassan Amrani</div>
-              <div class="review-role">Client — Citroën C4</div>
-            </div>
-          </div>
-        </div>
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <div class="review-text">Solution AdBlue pour mon bus scolaire résolue rapidement. Équipe disponible, réactive et sérieuse. GME est maintenant notre garage officiel pour toute notre flotte.</div>
-          <div class="review-author">
-            <div class="review-avatar">RB</div>
-            <div>
-              <div class="review-name">Rachid Belkadi</div>
-              <div class="review-role">Gestionnaire de Flotte</div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="reviews-track" id="reviewsTrack"></div>
     </div>
     <div class="slider-controls" id="sliderDots"></div>
   </div>
@@ -987,7 +805,7 @@ body[dir="rtl"] .lang-btn{font-family:var(--font-arabic);letter-spacing:0;text-t
         <span class="section-tag" data-i18n="ct.tag">Contact</span>
         <h2 class="section-title" data-i18n-html="ct.title">Prenez<br><span>Rendez-Vous</span></h2>
         <div class="divider"></div>
-        <p class="section-subtitle" style="margin-bottom:2rem">Contactez-nous via WhatsApp pour une réponse rapide, ou venez directement à notre garage.</p>
+        <p class="section-subtitle" style="margin-bottom:2rem" data-i18n="ct.desc">Contactez-nous via WhatsApp pour une réponse rapide, ou venez directement à notre garage.</p>
         <div class="contact-item">
           <div class="contact-icon">📍</div>
           <div>
@@ -999,21 +817,21 @@ body[dir="rtl"] .lang-btn{font-family:var(--font-arabic);letter-spacing:0;text-t
           <div class="contact-icon">📞</div>
           <div>
             <div class="contact-detail-label" data-i18n="ct.phone">Téléphone</div>
-            <div class="contact-detail-value"><a href="tel:+212XXXXXXXXX">+212 6XX XXX XXX</a></div>
+            <div class="contact-detail-value"><a href="tel:+212626103719" class="site-tel" data-site-phone>+212 626 103 719</a></div>
           </div>
         </div>
         <div class="contact-item">
           <div class="contact-icon">💬</div>
           <div>
-            <div class="contact-detail-label">WhatsApp</div>
+            <div class="contact-detail-label" data-i18n="ct.whatsapp">WhatsApp</div>
             <div class="contact-detail-value"><a href="https://wa.me/212XXXXXXXXX?text=Bonjour%20GME%2C%20je%20souhaite%20obtenir%20plus%20d%27informations%20concernant%20vos%20services." target="_blank" data-i18n="ct.walink">Discuter sur WhatsApp →</a></div>
           </div>
         </div>
         <div class="contact-item">
           <div class="contact-icon">✉️</div>
           <div>
-            <div class="contact-detail-label">Email</div>
-            <div class="contact-detail-value"><a href="mailto:contact@gme-auto.ma">contact@gme-auto.ma</a></div>
+            <div class="contact-detail-label" data-i18n="ct.email">Email</div>
+            <div class="contact-detail-value"><a href="mailto:gmeautomobilemaroc@gmail.com" class="site-email">gmeautomobilemaroc@gmail.com</a></div>
           </div>
         </div>
         <div class="social-row">
@@ -1024,20 +842,15 @@ body[dir="rtl"] .lang-btn{font-family:var(--font-arabic);letter-spacing:0;text-t
       </div>
       <div class="reveal-right">
         <div class="map-placeholder">
-          <div class="map-grid-lines"></div>
-          <div style="text-align:center;z-index:1;position:relative">
-            <div style="font-size:3rem;margin-bottom:.5rem">📍</div>
-            <div style="font-family:var(--font-heading);font-size:.85rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.3)">GME — Garage Automobile</div>
-            <div style="font-size:.75rem;color:var(--text-muted);margin-top:.3rem">Maroc</div>
-            <a href="https://maps.google.com" target="_blank" style="display:inline-block;margin-top:1rem;background:var(--red);color:#fff;font-family:var(--font-heading);font-size:.8rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:.6rem 1.5rem;border-radius:2px" data-i18n="ct.mapbtn">Ouvrir Maps →</a>
-          </div>
+          <iframe src="https://www.google.com/maps?q=33.525490,-7.528998&hl=fr&z=16&output=embed" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="GME — Garage Automobile"></iframe>
+          <a href="https://maps.google.com/?q=33.525490,-7.528998" target="_blank" rel="noopener" class="map-mapbtn site-maps" data-i18n="ct.mapbtn">Ouvrir Maps →</a>
         </div>
         <div style="margin-top:1.5rem;padding:1.5rem;background:var(--black-3);border-radius:4px;border:1px solid rgba(232,25,44,.2)">
-          <div style="font-family:var(--font-heading);font-size:.85rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:.75rem">🕐 Horaires d'Ouverture</div>
+          <div style="font-family:var(--font-heading);font-size:.85rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:.75rem" data-i18n="ct.hours">🕐 Horaires d'Ouverture</div>
           <div style="font-size:.85rem;color:var(--text-muted);line-height:2">
-            <span style="color:var(--text)">Lundi – Vendredi :</span> 08h00 – 18h00<br>
-            <span style="color:var(--text)">Samedi :</span> 08h00 – 15h00<br>
-            <span style="color:var(--text-muted)">Dimanche :</span> <span style="color:var(--red)" data-i18n="ct.closed">Fermé</span>
+            <span style="color:var(--text)" data-i18n="ct.monFri">Lundi – Vendredi :</span> 08h00 – 18h00<br>
+            <span style="color:var(--text)" data-i18n="ct.sat">Samedi :</span> 08h00 – 15h00<br>
+            <span style="color:var(--text-muted)" data-i18n="ct.sun">Dimanche :</span> <span style="color:var(--red)" data-i18n="ct.closed">Fermé</span>
           </div>
         </div>
       </div>
@@ -1063,40 +876,33 @@ body[dir="rtl"] .lang-btn{font-family:var(--font-arabic);letter-spacing:0;text-t
       </div>
       <div>
         <div class="footer-col-title" data-i18n="ft.quick">Liens Rapides</div>
-        <ul class="footer-links">
+        <ul class="footer-links" id="footerQuickLinks">
           <li><a href="#about" data-i18n="nav.about">À Propos</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#vehicles">Véhicules</a></li>
-          <li><a href="#gallery">Galerie</a></li>
-          <li><a href="#reviews">Avis</a></li>
+          <li><a href="#services" data-i18n="nav.services">Services</a></li>
+          <li><a href="#vehicles" data-i18n="nav.vehicles">Véhicules</a></li>
+          <li><a href="#gallery" data-i18n="nav.gallery">Galerie</a></li>
+          <li><a href="#reviews" data-i18n="nav.reviews">Avis</a></li>
           <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
         </ul>
       </div>
       <div>
         <div class="footer-col-title" data-i18n="ft.services">Services</div>
-        <ul class="footer-links">
-          <li><a href="#services">Diagnostic Auto</a></li>
-          <li><a href="#services">Boîte Automatique</a></li>
-          <li><a href="#services">Électromécanique</a></li>
-          <li><a href="#services">Suppression EGR/FAP</a></li>
-          <li><a href="#services">Pièces de Rechange</a></li>
-          <li><a href="#services">Bus & Camions</a></li>
-        </ul>
+        <ul class="footer-links" id="footerServices"></ul>
       </div>
       <div>
         <div class="footer-col-title" data-i18n="ft.contact">Contact</div>
         <ul class="footer-links">
-          <li><a href="tel:+212XXXXXXXXX">📞 +212 6XX XXX XXX</a></li>
-          <li><a href="https://wa.me/212XXXXXXXXX" target="_blank">💬 WhatsApp</a></li>
-          <li><a href="mailto:contact@gme-auto.ma">✉️ contact@gme-auto.ma</a></li>
-          <li style="color:var(--text-muted);font-size:.85rem;margin-top:.5rem">📍 Maroc</li>
+          <li><a href="tel:+212626103719" class="site-tel" data-site-phone>📞 +212 626 103 719</a></li>
+          <li><a href="https://wa.me/212626103719" target="_blank" class="site-wa">💬 WhatsApp</a></li>
+          <li><a href="mailto:gmeautomobilemaroc@gmail.com" class="site-email">✉️ gmeautomobilemaroc@gmail.com</a></li>
+          <li style="color:var(--text-muted);font-size:.85rem;margin-top:.5rem" data-i18n="ct.country">📍 Maroc</li>
           <li style="color:var(--text-muted);font-size:.85rem" data-i18n="ft.hours">🕐 Lun–Sam 08h–18h</li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-copy">© 2024 <span>GME</span> — Tous droits réservés. Garage Mécanique Expert, Maroc.</div>
-      <div class="footer-tagline">Mécanique • Pièces de Rechange • Diagnostic</div>
+      <div class="footer-copy" data-i18n="ft.copy">© 2024 GME — Tous droits réservés. Garage Mécanique Expert, Maroc.</div>
+      <div class="footer-tagline" data-i18n="hero.tagline">Mécanique • Pièces de Rechange • Diagnostic</div>
     </div>
   </div>
 </footer>
@@ -1114,7 +920,7 @@ body[dir="rtl"] .lang-btn{font-family:var(--font-arabic);letter-spacing:0;text-t
 const T={
 fr:{
 "nav.about":"À Propos","nav.services":"Services","nav.boutique":"Boutique",
-"nav.vehicles":"Véhicules","nav.gallery":"Galerie","nav.contact":"Contact","nav.cta":"📲 WhatsApp",
+"nav.vehicles":"Véhicules","nav.gallery":"Galerie","nav.contact":"Contact","nav.reviews":"Avis","nav.cta":"📲 WhatsApp",
 "hero.badge":"🔧 Garage Professionnel • Maroc",
 "hero.tagline":"Mécanique • Pièces de Rechange • Diagnostic",
 "hero.headline":"Votre Expert en <span>Mécanique</span> &amp;<br>Diagnostic <span>Automobile</span>",
@@ -1122,7 +928,7 @@ fr:{
 "hero.stat1":"Ans d'Expérience","hero.stat2":"Clients Satisfaits","hero.stat3val":"Tous","hero.stat3":"Types de Véhicules",
 "marq.1":"Diagnostic Automobile","marq.2":"Électromécanique","marq.3":"Boîte Automatique",
 "marq.4":"Pièces de Rechange","marq.5":"Suppression EGR/FAP","marq.6":"Programmation ECU","marq.7":"Bus & Camions","marq.8":"AdBlue",
-"about.tag":"À Propos de GME","about.title":"Le Standard de<br>l'<span>Excellence</span> Auto","about.badge":"Ans d'Excellence",
+"about.tag":"À Propos de GME","about.title":"Le Standard de<br>l'<span>Excellence</span> Auto","about.badge":"Ans d'Excellence","about.badgeHtml":"<span class=\"num\">10+</span>Ans<br>d'Excellence",
 "about.desc":"GME est votre partenaire de confiance pour tout ce qui concerne votre véhicule. Forts de plus de 10 ans d'expérience dans le domaine de la mécanique et de l'électronique automobile, nous offrons des services de haute qualité à des prix compétitifs.",
 "about.feat1t":"Experts Mécaniques","about.feat1d":"Techniciens certifiés sur tous types de véhicules",
 "about.feat2t":"Diagnostic Électronique","about.feat2d":"Équipements de diagnostic dernière génération",
@@ -1131,35 +937,36 @@ fr:{
 "svc.tag":"Nos Services","svc.title":"Ce Que Nous<br><span>Faisons le Mieux</span>",
 "svc.desc":"De la simple vidange au diagnostic électronique complexe, GME couvre l'ensemble de vos besoins automobiles.",
 "veh.tag":"Véhicules Pris en Charge","veh.title":"Tous Types de<br><span>Véhicules</span>",
-"veh.desc":"Que vous conduisiez une citadine, un SUV, un camion ou un bus, GME dispose des équipements et compétences adaptés.",
+"veh.desc":"Que vous conduisiez une citadine, un SUV, un 4×4 ou une caravane, GME dispose des équipements et compétences adaptés.",
 "why.tag":"Pourquoi GME","why.title":"Votre Confiance,<br>Notre <span>Engagement</span>",
 "gal.tag":"Galerie","gal.title":"Notre <span>Atelier</span><br>en Images",
 "gal.img1":"Atelier Principal","gal.img2":"Diagnostic","gal.img3":"Boîte de Vitesses","gal.img4":"Pièces de Rechange","gal.img5":"Camions & Bus",
 "shop.tag":"Boutique","shop.title":"Pièces de <span>Rechange</span><br>& Accessoires",
-"shop.desc":"Stock complet de pièces d'origine et équivalentes — toutes marques, meilleurs prix.",
+"shop.desc":"Stock complet de pièces d'origine et équivalentes — toutes marques, meilleurs prix. Contactez-nous sur WhatsApp pour commander ou vérifier la disponibilité.",
 "shop.searchph":"🔍  Rechercher une pièce, marque ou référence...",
-"shop.empty":"Aucune pièce trouvée.","shop.wabar":"Vous ne trouvez pas la pièce ? <span>Contactez-nous directement</span> — nous sourçons tout.",
-"shop.wacta":"📲 Demander sur WhatsApp","shop.order":"📲 Commander",
+"shop.empty":"Aucune pièce trouvée pour cette recherche.","shop.nolistings":"Aucune annonce disponible pour le moment.","shop.wabar":"Vous ne trouvez pas la pièce qu'il vous faut ? <span>Contactez-nous directement</span> — nous sourçons toutes les pièces introuvables.",
+"shop.wacta":"📲 Demander sur WhatsApp","shop.order":"📲 Commander","shop.ref":"Réf:",
 "shop.badge.new":"Nouveau","shop.badge.promo":"Promo","shop.badge.stock":"En Stock",
-"shop.cats":["Tout","Moteur","Freinage","Boîte","Électricité","Filtres","Suspension","Carrosserie"],
+"shop.cats":["Tout","Moteur","Freinage","Boîte","Électricité","Voitures"],
 "rev.tag":"Témoignages","rev.title":"Ce Que Disent<br>Nos <span>Clients</span>",
 "ct.tag":"Contact","ct.title":"Prenez<br><span>Rendez-Vous</span>",
 "ct.desc":"Contactez-nous via WhatsApp pour une réponse rapide, ou venez directement à notre garage.",
-"ct.addr":"Adresse","ct.addrval":"Votre adresse complète, Maroc","ct.phone":"Téléphone","ct.walink":"Discuter sur WhatsApp →",
+"ct.addr":"Adresse","ct.addrval":"Casablanca, Maroc","ct.phone":"Téléphone","ct.whatsapp":"WhatsApp","ct.email":"Email","ct.walink":"Discuter sur WhatsApp →",
+"ct.maplabel":"GME — Garage Automobile","ct.country":"Maroc",
 "ct.mapbtn":"Ouvrir Maps →","ct.hours":"🕐 Horaires d'Ouverture",
 "ct.monFri":"Lundi – Vendredi","ct.sat":"Samedi","ct.sun":"Dimanche","ct.closed":"Fermé",
-"ft.desc":"Votre expert automobile au Maroc depuis plus de 10 ans.","ft.quick":"Liens Rapides","ft.services":"Services","ft.contact":"Contact",
-"ft.hours":"🕐 Lun–Sam 08h–18h","ft.copy":"Tous droits réservés. Maroc.",
+"ft.desc":"Votre expert automobile au Maroc depuis plus de 10 ans. Mécanique, diagnostic électronique, boîtes automatiques et pièces de rechange.","ft.quick":"Liens Rapides","ft.services":"Services","ft.contact":"Contact",
+"ft.hours":"🕐 Lun–Sam 08h–18h","ft.copy":"© 2024 GME — Tous droits réservés. Garage Mécanique Expert, Maroc.",
 },
 en:{
-"nav.about":"About","nav.services":"Services","nav.boutique":"Shop","nav.vehicles":"Vehicles","nav.gallery":"Gallery","nav.contact":"Contact","nav.cta":"📲 WhatsApp",
+"nav.about":"About","nav.services":"Services","nav.boutique":"Shop","nav.vehicles":"Vehicles","nav.gallery":"Gallery","nav.contact":"Contact","nav.reviews":"Reviews","nav.cta":"📲 WhatsApp",
 "hero.badge":"🔧 Professional Garage • Morocco",
 "hero.tagline":"Mechanics • Spare Parts • Diagnostics",
 "hero.headline":"Your Expert in <span>Mechanics</span> &amp;<br>Automotive <span>Diagnostics</span>",
 "hero.cta1":"📲 Contact WhatsApp","hero.cta2":"🔍 Request a Diagnostic",
 "hero.stat1":"Years Experience","hero.stat2":"Satisfied Clients","hero.stat3val":"All","hero.stat3":"Vehicle Types",
 "marq.1":"Auto Diagnostics","marq.2":"Electromechanics","marq.3":"Automatic Gearbox","marq.4":"Spare Parts","marq.5":"EGR/DPF Removal","marq.6":"ECU Programming","marq.7":"Trucks & Buses","marq.8":"AdBlue",
-"about.tag":"About GME","about.title":"Setting the Standard<br>for <span>Excellence</span>","about.badge":"Years of Excellence",
+"about.tag":"About GME","about.title":"Setting the Standard<br>for <span>Excellence</span>","about.badge":"Years of Excellence","about.badgeHtml":"<span class=\"num\">10+</span>Years<br>of Excellence",
 "about.desc":"GME is your trusted partner for everything related to your vehicle. With over 10 years of experience in automotive mechanics and electronics, we deliver high-quality services at competitive prices.",
 "about.feat1t":"Expert Mechanics","about.feat1d":"Certified technicians for all vehicle types",
 "about.feat2t":"Electronic Diagnostics","about.feat2d":"Latest-generation diagnostic equipment",
@@ -1168,35 +975,36 @@ en:{
 "svc.tag":"Our Services","svc.title":"What We<br><span>Do Best</span>",
 "svc.desc":"From a simple oil change to complex electronic diagnostics, GME covers all your automotive needs.",
 "veh.tag":"Vehicles We Service","veh.title":"All Types of<br><span>Vehicles</span>",
-"veh.desc":"Whether you drive a city car, SUV, truck or bus, GME has the equipment and expertise to handle it.",
+"veh.desc":"Whether you drive a city car, SUV, 4×4 or caravan, GME has the equipment and expertise to handle it.",
 "why.tag":"Why GME","why.title":"Your Trust,<br>Our <span>Commitment</span>",
 "gal.tag":"Gallery","gal.title":"Our <span>Workshop</span><br>in Pictures",
 "gal.img1":"Main Workshop","gal.img2":"Diagnostics","gal.img3":"Gearbox","gal.img4":"Spare Parts","gal.img5":"Trucks & Buses",
 "shop.tag":"Shop","shop.title":"Spare <span>Parts</span><br>& Accessories",
-"shop.desc":"Full stock of genuine and equivalent parts — all brands, best prices.",
+"shop.desc":"Full stock of genuine and equivalent parts — all brands, best prices. Contact us on WhatsApp to order or check availability.",
 "shop.searchph":"🔍  Search by part name, brand or reference...",
-"shop.empty":"No parts found.","shop.wabar":"Can't find the part? <span>Contact us directly</span> — we source everything.",
-"shop.wacta":"📲 Ask on WhatsApp","shop.order":"📲 Order",
+"shop.empty":"No parts found for this search.","shop.nolistings":"No listings available at the moment.","shop.wabar":"Can't find the part you need? <span>Contact us directly</span> — we source everything.",
+"shop.wacta":"📲 Ask on WhatsApp","shop.order":"📲 Order","shop.ref":"Ref:",
 "shop.badge.new":"New","shop.badge.promo":"Sale","shop.badge.stock":"In Stock",
-"shop.cats":["All","Engine","Brakes","Gearbox","Electrics","Filters","Suspension","Body"],
+"shop.cats":["All","Engine","Brakes","Gearbox","Electrics","Cars"],
 "rev.tag":"Reviews","rev.title":"What Our<br><span>Clients</span> Say",
 "ct.tag":"Contact","ct.title":"Book Your<br><span>Appointment</span>",
 "ct.desc":"Contact us via WhatsApp for a quick response, or come directly to our garage.",
-"ct.addr":"Address","ct.addrval":"Full address, Morocco","ct.phone":"Phone","ct.walink":"Chat on WhatsApp →",
+"ct.addr":"Address","ct.addrval":"Casablanca, Morocco","ct.phone":"Phone","ct.whatsapp":"WhatsApp","ct.email":"Email","ct.walink":"Chat on WhatsApp →",
+"ct.maplabel":"GME — Automotive Garage","ct.country":"Morocco",
 "ct.mapbtn":"Open Maps →","ct.hours":"🕐 Opening Hours",
 "ct.monFri":"Monday – Friday","ct.sat":"Saturday","ct.sun":"Sunday","ct.closed":"Closed",
-"ft.desc":"Your automotive expert in Morocco for over 10 years.","ft.quick":"Quick Links","ft.services":"Services","ft.contact":"Contact",
-"ft.hours":"🕐 Mon–Sat 08:00–18:00","ft.copy":"All rights reserved. Morocco.",
+"ft.desc":"Your automotive expert in Morocco for over 10 years. Mechanics, electronic diagnostics, automatic gearboxes and spare parts.","ft.quick":"Quick Links","ft.services":"Services","ft.contact":"Contact",
+"ft.hours":"🕐 Mon–Sat 08:00–18:00","ft.copy":"© 2024 GME — All rights reserved. Expert Automotive Garage, Morocco.",
 },
 ar:{
-"nav.about":"من نحن","nav.services":"خدماتنا","nav.boutique":"المتجر","nav.vehicles":"المركبات","nav.gallery":"المعرض","nav.contact":"اتصل بنا","nav.cta":"📲 واتساب",
+"nav.about":"من نحن","nav.services":"خدماتنا","nav.boutique":"المتجر","nav.vehicles":"المركبات","nav.gallery":"المعرض","nav.contact":"اتصل بنا","nav.reviews":"آراء العملاء","nav.cta":"📲 واتساب",
 "hero.badge":"🔧 كراج محترف • المغرب",
 "hero.tagline":"ميكانيكا • قطع غيار • تشخيص",
 "hero.headline":"خبيرك في <span>الميكانيكا</span><br>وتشخيص <span>السيارات</span>",
 "hero.cta1":"📲 تواصل عبر واتساب","hero.cta2":"🔍 طلب تشخيص",
 "hero.stat1":"سنوات خبرة","hero.stat2":"عميل راضٍ","hero.stat3val":"جميع","hero.stat3":"أنواع المركبات",
 "marq.1":"تشخيص السيارات","marq.2":"كهرباء وميكانيكا","marq.3":"علبة التروس الأوتوماتيكية","marq.4":"قطع الغيار","marq.5":"إزالة EGR/FAP","marq.6":"برمجة حاسوب السيارة","marq.7":"شاحنات وحافلات","marq.8":"AdBlue",
-"about.tag":"من نحن","about.title":"معيار <span>التميز</span><br>في السيارات","about.badge":"سنوات من التميز",
+"about.tag":"من نحن","about.title":"معيار <span>التميز</span><br>في السيارات","about.badge":"سنوات من التميز","about.badgeHtml":"<span class=\"num\">10+</span>سنوات<br>من التميز",
 "about.desc":"GME هو شريكك الموثوق لكل ما يتعلق بسيارتك. بأكثر من 10 سنوات خبرة في مجال الميكانيكا والإلكترونيات للسيارات، نقدم خدمات عالية الجودة بأسعار تنافسية.",
 "about.feat1t":"خبراء الميكانيكا","about.feat1d":"تقنيون معتمدون لجميع أنواع المركبات",
 "about.feat2t":"التشخيص الإلكتروني","about.feat2d":"أحدث معدات التشخيص الإلكتروني",
@@ -1205,59 +1013,58 @@ ar:{
 "svc.tag":"خدماتنا","svc.title":"ما نتقنه<br><span>على أكمل وجه</span>",
 "svc.desc":"من تغيير الزيت البسيط إلى أعقد عمليات التشخيص الإلكتروني، GME يغطي جميع احتياجاتك.",
 "veh.tag":"المركبات التي نخدمها","veh.title":"جميع أنواع<br><span>المركبات</span>",
-"veh.desc":"سواء كنت تقود سيارة صغيرة أو دفع رباعي أو شاحنة أو حافلة، لدى GME المعدات والخبرة اللازمة.",
+"veh.desc":"سواء كنت تقود سيارة صغيرة أو دفع رباعي أو كارافان، لدى GME المعدات والخبرة اللازمة.",
 "why.tag":"لماذا GME","why.title":"ثقتك<br><span>التزامنا</span>",
 "gal.tag":"المعرض","gal.title":"<span>ورشتنا</span><br>بالصور",
 "gal.img1":"الورشة الرئيسية","gal.img2":"التشخيص","gal.img3":"علبة التروس","gal.img4":"قطع الغيار","gal.img5":"الشاحنات والحافلات",
 "shop.tag":"المتجر","shop.title":"قطع الغيار<br>و<span>الإكسسوارات</span>",
-"shop.desc":"مخزون كامل من القطع الأصلية والبديلة — جميع الماركات، أفضل الأسعار.",
+"shop.desc":"مخزون كامل من القطع الأصلية والبديلة — جميع الماركات، أفضل الأسعار. تواصل معنا عبر واتساب للطلب أو التحقق من التوفر.",
 "shop.searchph":"🔍  ابحث عن قطعة أو ماركة أو مرجع...",
-"shop.empty":"لم يتم العثور على قطع.","shop.wabar":"لم تجد القطعة؟ <span>تواصل معنا مباشرة</span> — نوفر كل شيء.",
-"shop.wacta":"📲 اطلب عبر واتساب","shop.order":"📲 اطلب",
+"shop.empty":"لم يتم العثور على قطع لهذا البحث.","shop.nolistings":"لا توجد إعلانات متاحة حالياً.","shop.wabar":"لم تجد القطعة التي تحتاجها؟ <span>تواصل معنا مباشرة</span> — نوفر جميع القطع.",
+"shop.wacta":"📲 اطلب عبر واتساب","shop.order":"📲 اطلب","shop.ref":"المرجع:",
 "shop.badge.new":"جديد","shop.badge.promo":"عرض","shop.badge.stock":"متوفر",
-"shop.cats":["الكل","المحرك","الفرامل","علبة التروس","الكهرباء","الفلاتر","التعليق","الهيكل"],
+"shop.cats":["الكل","المحرك","الفرامل","علبة التروس","الكهرباء","السيارات"],
 "rev.tag":"آراء العملاء","rev.title":"ماذا يقول<br><span>عملاؤنا</span>",
 "ct.tag":"اتصل بنا","ct.title":"احجز<br><span>موعدك</span>",
 "ct.desc":"تواصل معنا عبر واتساب للرد السريع، أو زورنا مباشرة في الكراج.",
-"ct.addr":"العنوان","ct.addrval":"عنوانكم الكامل، المغرب","ct.phone":"الهاتف","ct.walink":"تحدث على واتساب ←",
+"ct.addr":"العنوان","ct.addrval":"الدار البيضاء، المغرب","ct.phone":"الهاتف","ct.whatsapp":"واتساب","ct.email":"البريد الإلكتروني","ct.walink":"تحدث على واتساب ←",
+"ct.maplabel":"GME — كراج سيارات","ct.country":"المغرب",
 "ct.mapbtn":"افتح الخريطة ←","ct.hours":"🕐 ساعات العمل",
 "ct.monFri":"الإثنين – الجمعة","ct.sat":"السبت","ct.sun":"الأحد","ct.closed":"مغلق",
-"ft.desc":"خبيرك في السيارات بالمغرب منذ أكثر من 10 سنوات.","ft.quick":"روابط سريعة","ft.services":"الخدمات","ft.contact":"اتصل بنا",
-"ft.hours":"🕐 الإثنين–السبت 08:00–18:00","ft.copy":"جميع الحقوق محفوظة. المغرب.",
+"ft.desc":"خبيرك في السيارات بالمغرب منذ أكثر من 10 سنوات. ميكانيكا، تشخيص إلكتروني، علب أوتوماتيكية وقطع غيار.","ft.quick":"روابط سريعة","ft.services":"الخدمات","ft.contact":"اتصل بنا",
+"ft.hours":"🕐 الإثنين–السبت 08:00–18:00","ft.copy":"© 2024 GME — جميع الحقوق محفوظة. كراج ميكانيكا خبير، المغرب.",
 },
 };
 
 const SERVICES=[
-{icon:"🔍",fr:"Diagnostic Automobile",en:"Auto Diagnostics",ar:"تشخيص السيارات",dfr:"Lecture et analyse complète des codes défauts multi-marques.",den:"Full multi-brand fault code reading and analysis.",dar:"قراءة وتحليل شامل لرموز الأخطاء لجميع الماركات."},
-{icon:"⚡",fr:"Électromécanique",en:"Electromechanics",ar:"كهرباء وميكانيكا",dfr:"Réparation et maintenance de tous les systèmes électromécaniques.",den:"Repair and maintenance of all electromechanical systems.",dar:"إصلاح وصيانة جميع الأنظمة الكهروميكانيكية."},
-{icon:"🔩",fr:"Boîte Manuelle",en:"Manual Gearbox",ar:"علبة التروس اليدوية",dfr:"Révision et réparation de boîtes manuelles toutes marques.",den:"Overhaul and repair of manual gearboxes, all brands.",dar:"مراجعة وإصلاح علب التروس اليدوية لجميع الماركات."},
-{icon:"🤖",fr:"Boîte Automatique",en:"Automatic Gearbox",ar:"علبة التروس الأوتوماتيكية",dfr:"Spécialistes DSG, CVT — réparation et reconditionnement.",den:"DSG, CVT specialists — repair and reconditioning.",dar:"متخصصون في DSG وCVT — الإصلاح وإعادة التأهيل."},
-{icon:"💾",fr:"Prog. Calculateur",en:"ECU Programming",ar:"برمجة الحاسوب",dfr:"Programmation, remapping et remplacement d'ECU.",den:"ECU programming, remapping and replacement.",dar:"برمجة وإعادة تعيين واستبدال وحدة التحكم ECU."},
-{icon:"🔌",fr:"Cartes Électroniques",en:"Electronic Boards",ar:"البطاقات الإلكترونية",dfr:"Réparation BSI, BCM, tableau de bord, modules.",den:"BSI, BCM, dashboard, electronic module repair.",dar:"إصلاح BSI وBCM ولوحة العدادات والوحدات الإلكترونية."},
-{icon:"🛒",fr:"Pièces de Rechange",en:"Spare Parts",ar:"قطع الغيار",dfr:"Vente de pièces d'origine et équivalentes toutes marques.",den:"Sale of genuine and equivalent parts for all brands.",dar:"بيع قطع غيار أصلية وبديلة لجميع الماركات."},
-{icon:"♻️",fr:"Ferraille Automobile",en:"Auto Salvage",ar:"قطع مستعملة",dfr:"Achat et vente de pièces d'occasion et ferraille.",den:"Buying and selling used parts and scrap vehicles.",dar:"شراء وبيع القطع المستعملة وخردة السيارات."},
-{icon:"🏭",fr:"Suppression EGR",en:"EGR Removal",ar:"إزالة صمام EGR",dfr:"Désactivation et suppression des vannes EGR.",den:"Deactivation and removal of EGR valves.",dar:"تعطيل وإزالة صمامات EGR لتحسين الأداء."},
-{icon:"💨",fr:"Suppression FAP",en:"DPF Removal",ar:"إزالة فلتر الجسيمات",dfr:"Suppression logicielle et physique des filtres FAP/DPF.",den:"Software and physical DPF/FAP filter removal.",dar:"إزالة برمجية وفيزيائية لفلاتر الجسيمات FAP/DPF."},
-{icon:"🌿",fr:"AdBlue",en:"AdBlue",ar:"AdBlue",dfr:"Recharge, suppression et reprogrammation AdBlue.",den:"AdBlue refilling, removal and reprogramming.",dar:"إعادة تعبئة AdBlue وإزالته وإعادة برمجته."},
-{icon:"🚘",fr:"Voitures Neuf/Occasion",en:"New & Used Cars",ar:"سيارات جديدة ومستعملة",dfr:"Vente de véhicules avec inspection technique complète.",den:"Vehicle sales with full technical inspection.",dar:"بيع السيارات مع فحص تقني كامل."},
-{icon:"🚌",fr:"Bus & Camions",en:"Trucks & Buses",ar:"شاحنات وحافلات",dfr:"Services spécialisés pour poids lourds et bus.",den:"Specialist services for heavy vehicles and buses.",dar:"خدمات متخصصة للمركبات الثقيلة والحافلات."},
-{icon:"🛠️",fr:"Assistance Technique",en:"Technical Support",ar:"الدعم التقني",dfr:"Conseil et assistance pour professionnels et flottes.",den:"Advice and support for professionals and fleets.",dar:"استشارة ودعم للمهنيين وأساطيل السيارات."},
+{icon:"🔍",fr:"Diagnostic Automobile",en:"Auto Diagnostics",ar:"تشخيص السيارات",dfr:"Lecture et analyse complète des codes défauts, diagnostic multi-marques avec outils professionnels.",den:"Full fault code reading and analysis, multi-brand diagnostics with professional tools.",dar:"قراءة وتحليل شامل لرموز الأخطاء، تشخيص متعدد الماركات بأدوات احترافية."},
+{icon:"⚡",fr:"Électromécanique",en:"Electromechanics",ar:"كهرباء وميكانيكا",dfr:"Réparation et maintenance de tous les systèmes électromécaniques de votre véhicule.",den:"Repair and maintenance of all electromechanical systems in your vehicle.",dar:"إصلاح وصيانة جميع الأنظمة الكهروميكانيكية لسيارتك."},
+{icon:"🔩",fr:"Boîte Manuelle",en:"Manual Gearbox",ar:"علبة التروس اليدوية",dfr:"Révision, réparation et remplacement de boîtes de vitesses manuelles toutes marques.",den:"Overhaul, repair and replacement of manual gearboxes for all brands.",dar:"مراجعة وإصلاح واستبدال علب التروس اليدوية لجميع الماركات."},
+{icon:"🤖",fr:"Boîte Automatique",en:"Automatic Gearbox",ar:"علبة التروس الأوتوماتيكية",dfr:"Spécialistes des boîtes automatiques, DSG, CVT — réparation et reconditionnement.",den:"Specialists in automatic gearboxes, DSG, CVT — repair and reconditioning.",dar:"متخصصون في علب التروس الأوتوماتيكية وDSG وCVT — الإصلاح وإعادة التأهيل."},
+{icon:"💾",fr:"Prog. Calculateur",en:"ECU Programming",ar:"برمجة الحاسوب",dfr:"Programmation, remapping et remplacement d'ECU / calculateurs électroniques.",den:"Programming, remapping and replacement of ECU / electronic control units.",dar:"برمجة وإعادة ضبط واستبدال وحدة التحكم ECU والحواسيب الإلكترونية."},
+{icon:"🔌",fr:"Cartes Électroniques",en:"Electronic Boards",ar:"البطاقات الإلكترونية",dfr:"Réparation de cartes électroniques : BSI, BCM, tableau de bord, modules divers.",den:"Repair of electronic boards: BSI, BCM, dashboard, various modules.",dar:"إصلاح البطاقات الإلكترونية: BSI وBCM ولوحة العدادات والوحدات المختلفة."},
+{icon:"🛒",fr:"Pièces de Rechange",en:"Spare Parts",ar:"قطع الغيار",dfr:"Vente de pièces d'origine et équivalentes pour toutes marques et modèles.",den:"Sale of genuine and equivalent parts for all brands and models.",dar:"بيع قطع غيار أصلية وبديلة لجميع الماركات والموديلات."},
+{icon:"♻️",fr:"Ferraille Automobile",en:"Auto Salvage",ar:"خردة السيارات",dfr:"Achat et vente de pièces d'occasion, ferraille et véhicules hors d'usage.",den:"Buying and selling used parts, scrap metal and end-of-life vehicles.",dar:"شراء وبيع القطع المستعملة والخردة والمركبات خارج الاستخدام."},
+{icon:"🏭",fr:"Suppression EGR",en:"EGR Removal",ar:"إزالة صمام EGR",dfr:"Désactivation et suppression des vannes EGR pour améliorer les performances.",den:"Deactivation and removal of EGR valves to improve performance.",dar:"تعطيل وإزالة صمامات EGR لتحسين الأداء."},
+{icon:"💨",fr:"Suppression FAP",en:"DPF Removal",ar:"إزالة فلتر الجسيمات",dfr:"Suppression logicielle et physique des filtres à particules FAP/DPF.",den:"Software and physical removal of FAP/DPF particulate filters.",dar:"إزالة برمجية وفيزيائية لفلاتر الجسيمات FAP/DPF."},
+{icon:"🌿",fr:"AdBlue",en:"AdBlue",ar:"AdBlue",dfr:"Solutions AdBlue : recharge, suppression et reprogrammation pour poids lourds et VP.",den:"AdBlue solutions: refilling, removal and reprogramming for trucks and cars.",dar:"حلول AdBlue: إعادة التعبئة والإزالة وإعادة البرمجة للشاحنات والمركبات الخفيفة."},
+{icon:"🚘",fr:"Voitures Neuf / Occasion",en:"New & Used Cars",ar:"سيارات جديدة ومستعملة",dfr:"Vente de véhicules neufs et d'occasion avec inspection technique complète.",den:"Sale of new and used vehicles with full technical inspection.",dar:"بيع سيارات جديدة ومستعملة مع فحص تقني كامل."},
+{icon:"🚌",fr:"Bus & Camions",en:"Trucks & Buses",ar:"شاحنات وحافلات",dfr:"Services spécialisés pour poids lourds, bus, minibus et véhicules utilitaires.",den:"Specialist services for heavy trucks, buses, minibuses and commercial vehicles.",dar:"خدمات متخصصة للشاحنات والحافلات والميني باص والمركبات التجارية."},
+{icon:"🛠️",fr:"Assistance Technique",en:"Technical Support",ar:"الدعم التقني",dfr:"Conseil et assistance technique pour professionnels et flottes d'entreprise.",den:"Technical advice and support for professionals and company fleets.",dar:"استشارة ودعم تقني للمهنيين وأساطيل الشركات."},
 ];
 
 const WHY=[
-{icon:"👨‍🔧",fr:"Techniciens Experts",en:"Expert Technicians",ar:"تقنيون خبراء",dfr:"Équipe qualifiée avec des années d'expérience.",den:"Qualified team with years of experience.",dar:"فريق مؤهل بسنوات من الخبرة في جميع الماركات."},
-{icon:"💻",fr:"Équipements Modernes",en:"Modern Equipment",ar:"معدات حديثة",dfr:"Outils de diagnostic et d'intervention dernier cri.",den:"State-of-the-art diagnostic and repair tools.",dar:"أحدث أدوات التشخيص والتدخل في السيارات."},
-{icon:"⚡",fr:"Service Rapide",en:"Fast Service",ar:"خدمة سريعة",dfr:"Délais optimisés pour vous remettre sur la route.",den:"Optimised turnaround to get you back on the road.",dar:"أوقات إصلاح مُحسَّنة لإعادتك إلى الطريق سريعاً."},
-{icon:"✅",fr:"Pièces d'Origine",en:"Genuine Parts",ar:"قطع أصلية",dfr:"Stock de pièces certifiées pour des réparations fiables.",den:"Certified parts stock for reliable repairs.",dar:"مخزون من القطع المعتمدة لإصلاحات موثوقة."},
-{icon:"💰",fr:"Prix Compétitifs",en:"Competitive Prices",ar:"أسعار تنافسية",dfr:"Tarification transparente et juste, sans surprise.",den:"Transparent and fair pricing, no hidden costs.",dar:"تسعير شفاف وعادل بدون مفاجآت في الفاتورة."},
+{icon:"👨‍🔧",fr:"Techniciens Experts",en:"Expert Technicians",ar:"تقنيون خبراء",dfr:"Équipe qualifiée avec des années d'expérience sur toutes les marques.",den:"Qualified team with years of experience across all brands.",dar:"فريق مؤهل بسنوات من الخبرة على جميع الماركات."},
+{icon:"💻",fr:"Équipements Modernes",en:"Modern Equipment",ar:"معدات حديثة",dfr:"Outils de diagnostic et d'intervention de dernière génération.",den:"Latest-generation diagnostic and repair tools.",dar:"أدوات تشخيص وتدخل من أحدث الجيل."},
+{icon:"⚡",fr:"Service Rapide",en:"Fast Service",ar:"خدمة سريعة",dfr:"Délais optimisés pour vous remettre sur la route le plus vite possible.",den:"Optimised turnaround to get you back on the road as fast as possible.",dar:"أوقات إصلاح مُحسَّنة لإعادتك إلى الطريق في أسرع وقت."},
+{icon:"✅",fr:"Pièces d'Origine",en:"Genuine Parts",ar:"قطع أصلية",dfr:"Stock de pièces certifiées pour garantir la qualité des réparations.",den:"Certified parts stock to guarantee repair quality.",dar:"مخزون قطع معتمدة لضمان جودة الإصلاحات."},
+{icon:"💰",fr:"Prix Compétitifs",en:"Competitive Prices",ar:"أسعار تنافسية",dfr:"Tarification transparente et juste, sans surprise sur votre facture.",den:"Transparent and fair pricing with no surprises on your bill.",dar:"تسعير شفاف وعادل بدون مفاجآت في الفاتورة."},
 ];
 
 const VEHICLES=[
-{icon:"🚗",fr:"Voitures",en:"Cars",ar:"السيارات"},
-{icon:"🚙",fr:"SUV & 4×4",en:"SUV & 4×4",ar:"دفع رباعي"},
-{icon:"🚚",fr:"Camions",en:"Trucks",ar:"شاحنات"},
-{icon:"🚌",fr:"Bus",en:"Buses",ar:"حافلات"},
-{icon:"🚐",fr:"Utilitaires",en:"Commercial",ar:"مركبات تجارية"},
+{img:"https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=600&q=80",fr:"Voitures",en:"Cars",ar:"السيارات"},
+{img:"https://hips.hearstapps.com/hmg-prod/images/2025-gmc-yukon-denali-104-6852ceea84a0f.jpg?crop=0.735xw:0.620xh;0.0423xw,0.329xh&resize=1200:*",fr:"SUV & 4×4",en:"SUV & 4×4",ar:"دفع رباعي"},
+{img:"https://sc01.alicdn.com/kf/Hb807eda2f6b546239b5bac5db0fde42fg.jpg",fr:"Caravane",en:"Caravan",ar:"الكارافان"},
 ];
 
 const REVIEWS=[
@@ -1269,39 +1076,81 @@ const REVIEWS=[
 {init:"RB",fr:{name:"Rachid Belkadi",role:"Gestionnaire de Flotte",text:"Solution AdBlue pour mon bus résolue rapidement. Équipe disponible et sérieuse. GME est notre garage officiel pour toute notre flotte."},en:{name:"Rachid Belkadi",role:"Fleet Manager",text:"AdBlue solution for my bus resolved quickly. Available and serious team. GME is now our official garage for our entire fleet."},ar:{name:"رشيد بلقاضي",role:"مدير أسطول",text:"تم حل مشكلة AdBlue لحافلتي بسرعة. فريق متاح وجاد. GME هو كراجنا الرسمي لجميع أسطولنا."}},
 ];
 
-const PIECES=[
-{id:1,cat:'moteur',marque:'Bosch',nameFr:"Bougie d'Allumage Iridium",nameEn:'Iridium Spark Plug',nameAr:'شمعة إشعال إيريديوم',ref:'0242135528',tags:['Universel','Essence'],prix:85,devise:'MAD',badge:'stock',compat:'Renault / Peugeot / VW',icon:'🔩'},
-{id:2,cat:'moteur',marque:'Gates',nameFr:'Kit Distribution Complet',nameEn:'Complete Timing Belt Kit',nameAr:'طقم حزام التوزيع الكامل',ref:'TCK401',tags:['Diesel','Essence'],prix:650,oldprix:780,devise:'MAD',badge:'promo',compat:'Peugeot 206/307 / Citroën',icon:'⚙️'},
-{id:3,cat:'moteur',marque:'Mahle',nameFr:'Joint de Culasse 1.6 HDi',nameEn:'Head Gasket 1.6 HDi',nameAr:'جوانة رأس المحرك 1.6 HDi',ref:'MLS50242',tags:['Diesel'],prix:320,devise:'MAD',badge:'stock',compat:'Peugeot / Citroën 1.6 HDi',icon:'🔧'},
-{id:4,cat:'moteur',marque:'NGK',nameFr:'Câbles Bougies HPerf.',nameEn:'HPerf. Spark Plug Wires',nameAr:'أسلاك بواجي عالية الأداء',ref:'RC-FX33',tags:['Essence'],prix:180,devise:'MAD',badge:'new',compat:'Ford / Renault / Nissan',icon:'⚡'},
-{id:5,cat:'moteur',marque:'SKF',nameFr:'Pompe à Eau Origine',nameEn:'OEM Water Pump',nameAr:'مضخة الماء الأصلية',ref:'VKPC88615',tags:['Refroidissement'],prix:420,devise:'MAD',badge:'stock',compat:'BMW 3/5 Series',icon:'💧'},
-{id:6,cat:'freinage',marque:'Brembo',nameFr:'Disques Frein Avant Ventilés',nameEn:'Vented Front Brake Discs',nameAr:'أقراص الفرامل الأمامية مهواة',ref:'09.9753.11',tags:['Avant','Sport'],prix:480,oldprix:560,devise:'MAD',badge:'promo',compat:'Toyota / Honda / Nissan',icon:'🔴'},
-{id:7,cat:'freinage',marque:'Ferodo',nameFr:'Plaquettes Frein Avant',nameEn:'Front Brake Pads',nameAr:'وسادات الفرامل الأمامية',ref:'FDB1641',tags:['Avant','Céramique'],prix:210,devise:'MAD',badge:'stock',compat:'Renault Clio / Mégane',icon:'⬛'},
-{id:8,cat:'freinage',marque:'TRW',nameFr:'Tambour Frein Arrière',nameEn:'Rear Brake Drum',nameAr:'طبلة الفرامل الخلفية',ref:'DB4307',tags:['Arrière'],prix:350,devise:'MAD',badge:'stock',compat:'Dacia / Renault',icon:'⭕'},
-{id:9,cat:'freinage',marque:'ATE',nameFr:'Liquide de Frein DOT 4 1L',nameEn:'Brake Fluid DOT 4 1L',nameAr:'سائل الفرامل DOT 4',ref:'706101',tags:['DOT4'],prix:95,devise:'MAD',badge:'stock',compat:'Universel',icon:'🧴'},
-{id:10,cat:'boite',marque:'ZF',nameFr:'Filtre+Joint Boîte Auto 6HP26',nameEn:'Filter+Gasket Auto Gearbox 6HP26',nameAr:'فلتر وحشية علبة التروس 6HP26',ref:'ZF-1068298051',tags:['Auto','6HP'],prix:890,devise:'MAD',badge:'new',compat:'BMW / Audi / Land Rover',icon:'🤖'},
-{id:11,cat:'boite',marque:'Sachs',nameFr:'Kit Embrayage Complet',nameEn:'Complete Clutch Kit',nameAr:'طقم القابوس الكامل',ref:'3000951713',tags:['Manuel'],prix:1200,oldprix:1450,devise:'MAD',badge:'promo',compat:'VW / Seat / Skoda 1.9 TDi',icon:'⚙️'},
-{id:12,cat:'boite',marque:'LuK',nameFr:'Volant Moteur Bimasse',nameEn:'Dual Mass Flywheel',nameAr:'عجلة الحدافة ذات الكتلة المزدوجة',ref:'415026110',tags:['DMF'],prix:2200,devise:'MAD',badge:'stock',compat:'Ford Focus/Mondeo 2.0 TDCi',icon:'🌀'},
-{id:13,cat:'boite',marque:'Valeo',nameFr:'Huile Boîte ATF Dexron VI 1L',nameEn:'ATF Dexron VI Gearbox Oil 1L',nameAr:'زيت علبة التروس ATF Dexron VI',ref:'ATF-D6-1L',tags:['ATF'],prix:130,devise:'MAD',badge:'stock',compat:'Universel boîtes auto',icon:'🛢️'},
-{id:14,cat:'electricite',marque:'Bosch',nameFr:'Alternateur Reconditionné 90A',nameEn:'Reconditioned Alternator 90A',nameAr:'مولد كهربائي مجدد 90 أمبير',ref:'1986A00628',tags:['Recond.'],prix:950,oldprix:1100,devise:'MAD',badge:'promo',compat:'Peugeot / Citroën / Renault',icon:'⚡'},
-{id:15,cat:'electricite',marque:'Varta',nameFr:'Batterie Start/Stop 70Ah AGM',nameEn:'Start/Stop Battery 70Ah AGM',nameAr:'بطارية Start/Stop 70 أمبير AGM',ref:'E39',tags:['AGM','70Ah'],prix:1450,devise:'MAD',badge:'new',compat:'Véhicules Start/Stop',icon:'🔋'},
-{id:16,cat:'electricite',marque:'Bosch',nameFr:'Injecteur Common Rail',nameEn:'Common Rail Injector',nameAr:'حقان Common Rail',ref:'0445110012',tags:['Diesel','CR'],prix:1800,devise:'MAD',badge:'stock',compat:'Peugeot 307/407 2.0 HDi',icon:'💉'},
-{id:17,cat:'filtres',marque:'Mann',nameFr:'Filtre à Air Premium',nameEn:'Premium Air Filter',nameAr:'فلتر هواء ممتاز',ref:'C2756',tags:['Air'],prix:65,devise:'MAD',badge:'stock',compat:'Universel',icon:'💨'},
-{id:18,cat:'filtres',marque:'Bosch',nameFr:'Filtre à Huile avec Joint',nameEn:'Oil Filter with Gasket',nameAr:'فلتر الزيت مع الحشية',ref:'P7077',tags:['Huile'],prix:55,devise:'MAD',badge:'stock',compat:'Universel',icon:'🟡'},
-{id:19,cat:'filtres',marque:'Mahle',nameFr:'Filtre Habitacle Anti-Allergie',nameEn:'Anti-Allergy Cabin Filter',nameAr:'فلتر مقصورة مضاد للحساسية',ref:'LA568',tags:['Habitacle'],prix:90,devise:'MAD',badge:'new',compat:'Renault / Dacia / Nissan',icon:'🌿'},
-{id:20,cat:'filtres',marque:'WIX',nameFr:"Filtre Gasoil Séparateur d'Eau",nameEn:'Diesel Fuel/Water Sep. Filter',nameAr:'فلتر الديزل فاصل الماء',ref:'WF8333',tags:['Diesel'],prix:120,devise:'MAD',badge:'stock',compat:'Moteurs diesel',icon:'🔵'},
-{id:21,cat:'suspension',marque:'Monroe',nameFr:'Amortisseur Avant Sport',nameEn:'Front Sport Shock Absorber',nameAr:'ماص صدمات أمامي رياضي',ref:'742064SP',tags:['Avant','Sport'],prix:580,oldprix:650,devise:'MAD',badge:'promo',compat:'Renault Clio III/IV',icon:'📍'},
-{id:22,cat:'suspension',marque:'Febi',nameFr:'Silent Bloc Train Avant Paire',nameEn:'Front Axle Silent Block Pair',nameAr:'بوكسي المحور الأمامي زوج',ref:'17440',tags:['Silentbloc'],prix:190,devise:'MAD',badge:'stock',compat:'VW Golf / Passat',icon:'⚫'},
-{id:23,cat:'suspension',marque:'Moog',nameFr:'Rotule de Direction',nameEn:'Steering Ball Joint',nameAr:'كروية التوجيه',ref:'RE-ES-7317',tags:['Rotule'],prix:240,devise:'MAD',badge:'stock',compat:'Renault Megane / Scenic',icon:'🔗'},
-{id:24,cat:'suspension',marque:'SKF',nameFr:'Roulement Roue Avant Kit',nameEn:'Front Wheel Bearing Kit',nameAr:'طقم رولمان العجلة الأمامية',ref:'VKBA3456',tags:['Roulement'],prix:360,devise:'MAD',badge:'stock',compat:'Peugeot 206/307/308',icon:'⭕'},
-{id:25,cat:'carrosserie',marque:'TYC',nameFr:'Phare Avant Gauche LED',nameEn:'Left Front LED Headlight',nameAr:'مصباح أمامي أيسر LED',ref:'20-14095-05-2',tags:['LED'],prix:1350,devise:'MAD',badge:'new',compat:'Toyota Corolla 2019+',icon:'💡'},
-{id:26,cat:'carrosserie',marque:'Valeo',nameFr:'Feu Arrière Complet Droit',nameEn:'Complete Right Rear Light',nameAr:'مصباح خلفي أيمن كامل',ref:'44590',tags:['Arrière'],prix:680,oldprix:780,devise:'MAD',badge:'promo',compat:'Peugeot 308 SW 2014-2021',icon:'🔴'},
-{id:27,cat:'carrosserie',marque:'OEM',nameFr:'Pare-Choc Avant Apprêté',nameEn:'Primed Front Bumper',nameAr:'صدام أمامي مطلي',ref:'OEM-PCB-AV',tags:['Apprêté'],prix:890,devise:'MAD',badge:'stock',compat:'Renault Clio IV 2013-2019',icon:'🚘'},
-{id:28,cat:'carrosserie',marque:'OEM',nameFr:'Rétroviseur Électrique Gauche',nameEn:'Left Electric Mirror',nameAr:'مرآة جانبية كهربائية يسرى',ref:'OEM-REV-L',tags:['Électrique'],prix:520,devise:'MAD',badge:'stock',compat:'Dacia Duster / Logan',icon:'🔲'},
-];
+const MARQUE_COLOR={Bosch:'#E8192C',Gates:'#0066CC',Mahle:'#1A7F3C',NGK:'#FF6B00',SKF:'#00427A',Brembo:'#E8192C',Ferodo:'#555',TRW:'#003087',ATE:'#C00',ZF:'#1C3272',Sachs:'#E30613',LuK:'#005CA9',Valeo:'#00A0DF',Varta:'#1A3C85',Monroe:'#FF6B00',Febi:'#D40000',Moog:'#F60',Mann:'#003366',WIX:'#0056A2',TYC:'#2B5BAA','Magneti Marelli':'#003087',OEM:'#555',BMW:'#0066B1',Renault:'#FFCC00',Peugeot:'#0055A4',GME:'#E8192C'};
+const CAT_KEYS=['all','moteur','freinage','boite','electricite','voitures'];
 
-const MARQUE_COLOR={Bosch:'#E8192C',Gates:'#0066CC',Mahle:'#1A7F3C',NGK:'#FF6B00',SKF:'#00427A',Brembo:'#E8192C',Ferodo:'#555',TRW:'#003087',ATE:'#C00',ZF:'#1C3272',Sachs:'#E30613',LuK:'#005CA9',Valeo:'#00A0DF',Varta:'#1A3C85',Monroe:'#FF6B00',Febi:'#D40000',Moog:'#F60',Mann:'#003366',WIX:'#0056A2',TYC:'#2B5BAA','Magneti Marelli':'#003087',OEM:'#555'};
-const CAT_KEYS=['all','moteur','freinage','boite','electricite','filtres','suspension','carrosserie'];
+const API_BASE='http://localhost:3001';
+
+// ── Contact (update whatsapp with your number: 212 + 9 digits, no + or spaces)
+const SITE={
+  whatsapp:'212626103719',
+  phone:'+212 626 103 719',
+  tel:'+212626103719',
+  email:'gmeautomobilemaroc@gmail.com',
+  maps:'https://maps.google.com/?q=33.525490,-7.528998',
+  mapsEmbed:'https://www.google.com/maps?q=33.525490,-7.528998&hl=fr&z=16&output=embed',
+};
+function waUrl(text){return text?`https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(text)}`:`https://wa.me/${SITE.whatsapp}`;}
+function applySiteContact(){
+  document.querySelectorAll('.site-wa,a[href*="wa.me/212"]').forEach(a=>{
+    try{const t=new URL(a.href).searchParams.get('text');a.href=waUrl(t||'');}catch(e){a.href=waUrl('');}
+  });
+  document.querySelectorAll('.site-maps,a[href*="maps.google.com"]').forEach(a=>{a.href=SITE.maps;});
+  document.querySelectorAll('.site-tel,a[href^="tel:+212"]').forEach(a=>{a.href='tel:'+SITE.tel.replace(/\s/g,'');});
+  document.querySelectorAll('[data-site-phone]').forEach(el=>{
+    const raw=el.textContent.trim();
+    el.textContent=raw.includes('📞')?'📞 '+SITE.phone:SITE.phone;
+  });
+  document.querySelectorAll('.site-email,a[href^="mailto:"]').forEach(a=>{
+    a.href='mailto:'+SITE.email;
+    const raw=a.textContent.trim();
+    if(raw.includes('✉'))a.textContent='✉️ '+SITE.email;
+    else if(raw.includes('@'))a.textContent=SITE.email;
+  });
+}
+
+let apiPieces=[],apiVoitures=[],listingsLoaded=false;
+
+const PART_ICONS={moteur:'⚙️',freinage:'🔴',boite:'🤖',electricite:'⚡',default:'🔩'};
+
+function partCategoryToCat(partCategory){
+  const n=(partCategory||'').toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,'');
+  if(n.includes('moteur'))return'moteur';
+  if(n.includes('frein'))return'freinage';
+  if(n.includes('transmiss')||n.includes('boite')||n.includes('embray'))return'boite';
+  if(n.includes('electr'))return'electricite';
+  return'all';
+}
+
+function mapApiPiece(l){
+  const d=l.details||{};
+  const cat=partCategoryToCat(d.partCategory);
+  const brand=(d.compatibility||'GME').split(/[\s/]/)[0];
+  return{
+    id:l._id,cat,marque:brand,nameFr:l.title,nameEn:l.title,nameAr:l.title,
+    ref:l._id.slice(-8).toUpperCase(),
+    tags:[d.partCategory,d.condition,l.city].filter(Boolean),
+    prix:d.price,devise:'MAD',
+    badge:d.condition==='Nouveau'?'new':'stock',
+    compat:d.compatibility||'',icon:PART_ICONS[cat]||PART_ICONS.default,
+    image:getListingImage(l),city:l.city,fromApi:true
+  };
+}
+
+function getListingImage(l){return l.images&&l.images.length?l.images[0]:null;}
+
+async function loadListings(){
+  try{
+    const[pr,vr]=await Promise.all([
+      fetch(`${API_BASE}/api/listings?category=piece&limit=50`),
+      fetch(`${API_BASE}/api/listings?category=voiture&limit=50`)
+    ]);
+    const pd=await pr.json(),vd=await vr.json();
+    if(pd.success)apiPieces=(pd.listings||[]).filter(l=>l.isActive!==false).map(mapApiPiece);
+    if(vd.success)apiVoitures=(vd.listings||[]).filter(l=>l.isActive!==false);
+  }catch(e){console.warn('GME API unavailable',e);}
+  finally{listingsLoaded=true;}
+}
 
 let LANG='fr';
 const t=k=>(T[LANG]||T.fr)[k]||T.fr[k]||k;
@@ -1315,7 +1164,7 @@ function applyTranslations(){
   document.querySelectorAll('[data-i18n-html]').forEach(el=>{const v=t(el.dataset.i18nHtml);if(v)el.innerHTML=v;});
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{const v=t(el.dataset.i18nPlaceholder);if(v)el.placeholder=v;});
   document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.dataset.lang===LANG));
-  renderServices();renderVehicles();renderWhy();renderReviews();renderFilterTabs();filterPieces();renderFooterSvcs();
+  renderServices();renderVehicles();renderWhy();renderReviews();renderFilterTabs();filterBoutique();renderFooterSvcs();
 }
 
 function renderServices(){
@@ -1324,7 +1173,7 @@ function renderServices(){
 }
 function renderVehicles(){
   const g=document.getElementById('vehiclesGrid');if(!g)return;
-  g.innerHTML=VEHICLES.map((v,i)=>`<div class="vehicle-card reveal visible" style="transition-delay:${(i*.1+.1).toFixed(1)}s"><span class="vehicle-icon">${v.icon}</span><div class="vehicle-name">${LANG==='ar'?v.ar:LANG==='en'?v.en:v.fr}</div></div>`).join('');
+  g.innerHTML=VEHICLES.map((v,i)=>{const name=LANG==='ar'?v.ar:LANG==='en'?v.en:v.fr;return`<div class="vehicle-card reveal visible" style="transition-delay:${(i*.1+.1).toFixed(1)}s"><div class="vehicle-img"><img src="${v.img}" alt="${name}" loading="lazy"></div><div class="vehicle-name">${name}</div></div>`;}).join('');
 }
 function renderWhy(){
   const g=document.getElementById('whyGrid');if(!g)return;
@@ -1340,7 +1189,7 @@ function renderFilterTabs(){
   const c=document.getElementById('filterTabs');if(!c)return;
   const labels=t('shop.cats');
   c.innerHTML=CAT_KEYS.map((k,i)=>`<button class="filter-tab${k===activeCat?' active':''}" data-cat="${k}">${labels[i]||k}</button>`).join('');
-  c.querySelectorAll('.filter-tab').forEach(btn=>{btn.addEventListener('click',()=>{activeCat=btn.dataset.cat;c.querySelectorAll('.filter-tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');filterPieces();});});
+  c.querySelectorAll('.filter-tab').forEach(btn=>{btn.addEventListener('click',()=>{activeCat=btn.dataset.cat;c.querySelectorAll('.filter-tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');filterBoutique();});});
 }
 
 function buildPieceCard(p){
@@ -1348,22 +1197,57 @@ function buildPieceCard(p){
   const name=LANG==='ar'?p.nameAr:LANG==='en'?p.nameEn:p.nameFr;
   const bl=p.badge==='new'?t('shop.badge.new'):p.badge==='promo'?t('shop.badge.promo'):t('shop.badge.stock');
   const bc=p.badge==='new'?'new-item':p.badge;
-  const wamsg=encodeURIComponent(`${LANG==='ar'?'مرحبا GME':'Bonjour GME'}, ${name} (${p.marque}) — ${p.ref} — ${p.prix} ${p.devise}`);
+  const waText=`${LANG==='ar'?'مرحبا GME':'Bonjour GME'}, ${name} (${p.marque}) — ${p.ref} — ${p.prix} ${p.devise}`;
+  const imgBlock=p.image
+    ?`<img src="${p.image}" alt="${name}" loading="lazy">`
+    :`<div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 60%,${color}18 0%,transparent 70%)"></div><div style="text-align:center;position:relative;z-index:1"><div style="font-size:2.8rem;margin-bottom:.3rem">${p.icon}</div><div style="font-family:var(--font-heading);font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${color};opacity:.85">${p.marque}</div></div><div style="position:absolute;bottom:.5rem;right:.7rem;font-family:monospace;font-size:.62rem;color:rgba(255,255,255,.12)">${p.ref}</div>`;
   return`<div class="piece-card"><span class="piece-badge ${bc}">${bl}</span>
-  <div class="piece-img"><div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 60%,${color}18 0%,transparent 70%)"></div><div style="text-align:center;position:relative;z-index:1"><div style="font-size:2.8rem;margin-bottom:.3rem">${p.icon}</div><div style="font-family:var(--font-heading);font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${color};opacity:.85">${p.marque}</div></div><div style="position:absolute;bottom:.5rem;right:.7rem;font-family:monospace;font-size:.62rem;color:rgba(255,255,255,.12)">${p.ref}</div></div>
-  <div class="piece-body"><div class="piece-marque">${p.marque}</div><div class="piece-name">${name}</div><div class="piece-ref">Réf: ${p.ref}</div>
+  <div class="piece-img${p.image?' has-photo':''}">${imgBlock}</div>
+  <div class="piece-body"><div class="piece-marque">${p.marque}</div><div class="piece-name">${name}</div><div class="piece-ref">${t('shop.ref')} ${p.ref}</div>
   <div class="piece-tags">${p.tags.map(tg=>`<span class="piece-tag">${tg}</span>`).join('')}<span class="piece-tag" style="color:rgba(255,255,255,.22);border-color:rgba(255,255,255,.08)">🚗 ${p.compat}</span></div>
-  <div class="piece-footer"><div class="piece-price">${p.oldprix?`<span class="old-price">${p.oldprix} ${p.devise}</span>`:''} ${p.prix} <span class="currency">${p.devise}</span></div><a href="https://wa.me/212XXXXXXXXX?text=${wamsg}" target="_blank" class="piece-cta">${t('shop.order')}</a></div></div></div>`;
+  <div class="piece-footer"><div class="piece-price">${p.oldprix?`<span class="old-price">${p.oldprix} ${p.devise}</span>`:''} ${p.prix} <span class="currency">${p.devise}</span></div><a href="${waUrl(waText)}" target="_blank" class="piece-cta site-wa">${t('shop.order')}</a></div></div></div>`;
+}
+
+function buildVoitureCard(v){
+  const d=v.details||{};
+  const brand=d.brand||'';
+  const color=MARQUE_COLOR[brand]||'#E8192C';
+  const img=getListingImage(v);
+  const title=v.title;
+  const tags=[brand,d.model,d.year,d.fuelType,v.city].filter(Boolean);
+  const mileage=d.mileage!=null?`${d.mileage.toLocaleString('fr-FR')} km`:'';
+  const waText=`${LANG==='ar'?'مرحبا GME':'Bonjour GME'}, ${title} — ${brand} ${d.model||''} ${d.year||''} — ${d.price||''} MAD`;
+  const imgBlock=img
+    ?`<img src="${img}" alt="${title}" loading="lazy">`
+    :`<div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 60%,${color}18 0%,transparent 70%)"></div><div style="text-align:center;position:relative;z-index:1"><div style="font-size:2.8rem;margin-bottom:.3rem">🚗</div><div style="font-family:var(--font-heading);font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:${color};opacity:.85">${brand||'GME'}</div></div>`;
+  return`<div class="piece-card"><span class="piece-badge stock">${v.city||''}</span>
+  <div class="piece-img voiture-img${img?' has-photo':''}">${imgBlock}</div>
+  <div class="piece-body"><div class="piece-marque">${brand}</div><div class="piece-name">${title}</div><div class="piece-ref">${d.year||''} · ${d.fuelType||''}${mileage?' · '+mileage:''}</div>
+  <div class="piece-tags">${tags.map(tg=>`<span class="piece-tag">${tg}</span>`).join('')}</div>
+  <div class="piece-footer"><div class="piece-price">${(d.price||0).toLocaleString('fr-FR')} <span class="currency">MAD</span></div><a href="${waUrl(waText)}" target="_blank" class="piece-cta site-wa">${t('shop.order')}</a></div></div></div>`;
 }
 
 let activeCat='all',searchVal='';
-function filterPieces(){
-  let list=PIECES;
-  if(activeCat!=='all')list=list.filter(p=>p.cat===activeCat);
-  if(searchVal.trim()){const q=searchVal.toLowerCase();list=list.filter(p=>(p.nameFr+p.nameEn+p.nameAr+p.marque+p.ref+p.tags.join(' ')+p.compat).toLowerCase().includes(q));}
+function filterBoutique(){
   const grid=document.getElementById('piecesGrid'),empty=document.getElementById('piecesEmpty');
   if(!grid||!empty)return;
-  if(!list.length){grid.innerHTML='';empty.style.display='block';return;}
+  if(!listingsLoaded){grid.innerHTML='';empty.style.display='none';return;}
+
+  const noResults=t('shop.empty');
+  const noListings=t('shop.nolistings');
+
+  if(activeCat==='voitures'){
+    let list=[...apiVoitures];
+    if(searchVal.trim()){const q=searchVal.toLowerCase();list=list.filter(v=>{const d=v.details||{};return(v.title+v.description+v.city+(d.brand||'')+(d.model||'')).toLowerCase().includes(q);});}
+    if(!list.length){empty.textContent=searchVal.trim()||apiVoitures.length?noResults:noListings;grid.innerHTML='';empty.style.display='block';return;}
+    empty.style.display='none';grid.innerHTML=list.map(buildVoitureCard).join('');
+    return;
+  }
+
+  let list=[...apiPieces];
+  if(activeCat!=='all')list=list.filter(p=>p.cat===activeCat);
+  if(searchVal.trim()){const q=searchVal.toLowerCase();list=list.filter(p=>(p.nameFr+p.nameEn+p.nameAr+p.marque+p.ref+p.tags.join(' ')+p.compat).toLowerCase().includes(q));}
+  if(!list.length){empty.textContent=searchVal.trim()||apiPieces.length?noResults:noListings;grid.innerHTML='';empty.style.display='block';return;}
   empty.style.display='none';grid.innerHTML=list.map(buildPieceCard).join('');
 }
 
@@ -1414,6 +1298,7 @@ document.addEventListener('click',e=>{
   LANG=btn.dataset.lang;
   applyTranslations();
   mobileMenu.classList.remove('open');
+  applySiteContact();
 });
 
 // Reveal
@@ -1428,11 +1313,13 @@ const cntObs=new IntersectionObserver(entries=>entries.forEach(e=>{
 document.querySelectorAll('.count[data-target]').forEach(el=>cntObs.observe(el));
 
 // Search
-document.getElementById('pieceSearch').addEventListener('input',e=>{searchVal=e.target.value;filterPieces();});
+document.getElementById('pieceSearch').addEventListener('input',e=>{searchVal=e.target.value;filterBoutique();});
 window.addEventListener('resize',()=>initSlider());
 
 // INIT
+loadListings().then(()=>{filterBoutique();});
 applyTranslations();
+applySiteContact();
 </script>
 </body>
 </html>
