@@ -1,0 +1,18 @@
+[build]
+  command = "npm install"
+  publish = "."
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# Route public API calls to serverless function (reads MongoDB Atlas)
+[[redirects]]
+  from = "/api/listings"
+  to = "/.netlify/functions/listings"
+  status = 200
+
+[[redirects]]
+  from = "/api/listings/*"
+  to = "/.netlify/functions/listings"
+  status = 200

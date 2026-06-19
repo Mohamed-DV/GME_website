@@ -6,6 +6,8 @@
 <meta name="description" content="GME – Expert en Mécanique & Diagnostic Automobile au Maroc. Réparation boîte automatique, diagnostic électronique, pièces de rechange. Automotive Repair Morocco.">
 <meta name="keywords" content="Diagnostic Automobile Maroc, Pièces de Rechange Maroc, Réparation Boîte Automatique Maroc, GME Garage Maroc, Automotive Repair Morocco, Électromécanique Maroc">
 <title>GME – Mécanique • Pièces de Rechange • Diagnostic</title>
+<!-- Production API: set your Render/Railway URL after deploying github.com/Mohamed-DV/GME -->
+<meta name="gme-api" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Orbitron:wght@700;900&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
@@ -316,7 +318,8 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);paddin
 .piece-price .old-price{font-size:.8rem;color:var(--text-muted);text-decoration:line-through;display:block;font-family:var(--font-body);font-weight:400;margin-top:.1rem}
 .piece-cta{display:inline-flex;align-items:center;gap:.4rem;background:var(--red);color:#fff;font-family:var(--font-heading);font-size:.78rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:.55rem 1rem;border-radius:2px;border:none;cursor:pointer;transition:all .3s;white-space:nowrap}
 .piece-cta:hover{background:var(--red-dark);transform:translateY(-1px)}
-.pieces-empty{text-align:center;padding:3rem;color:var(--text-muted);font-family:var(--font-heading);letter-spacing:2px;text-transform:uppercase;display:none}
+.pieces-empty{text-align:center;padding:3rem 1.5rem;margin:1.5rem 0;color:var(--text-muted);font-family:var(--font-heading);letter-spacing:1px;text-transform:uppercase;display:none;min-height:100px;border:1px dashed rgba(255,255,255,.08);border-radius:4px;align-items:center;justify-content:center}
+.pieces-empty.is-visible{display:flex}
 .whatsapp-cta-bar{background:linear-gradient(135deg,rgba(232,25,44,.12),rgba(232,25,44,.04));border:1px solid rgba(232,25,44,.2);border-radius:4px;padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-top:2.5rem}
 .whatsapp-cta-bar p{font-family:var(--font-heading);font-size:1rem;font-weight:600;letter-spacing:1px;color:var(--text)}
 .whatsapp-cta-bar p span{color:var(--red)}
@@ -959,7 +962,7 @@ fr:{
 "shop.tag":"Boutique","shop.title":"Pièces de <span>Rechange</span><br>& Accessoires",
 "shop.desc":"Stock complet de pièces d'origine et équivalentes — toutes marques, meilleurs prix. Contactez-nous sur WhatsApp pour commander ou vérifier la disponibilité.",
 "shop.searchph":"🔍  Rechercher une pièce, marque ou référence...",
-"shop.empty":"Aucune pièce trouvée pour cette recherche.","shop.nolistings":"Aucune annonce disponible pour le moment.","shop.wabar":"Vous ne trouvez pas la pièce qu'il vous faut ? <span>Contactez-nous directement</span> — nous sourçons toutes les pièces introuvables.",
+"shop.empty":"Aucune pièce trouvée pour cette recherche.","shop.nolistings":"Aucune annonce disponible pour le moment.","shop.loading":"Chargement des annonces...","shop.apiOffline":"Impossible de joindre l'API. Vérifiez que le serveur backend est en ligne.","shop.wabar":"Vous ne trouvez pas la pièce qu'il vous faut ? <span>Contactez-nous directement</span> — nous sourçons toutes les pièces introuvables.",
 "shop.wacta":"📲 Demander sur WhatsApp","shop.order":"📲 Commander","shop.ref":"Réf:",
 "shop.badge.new":"Nouveau","shop.badge.promo":"Promo","shop.badge.stock":"En Stock",
 "shop.cats":["Tout","Moteur","Freinage","Boîte","Électricité","Voitures"],
@@ -998,7 +1001,7 @@ en:{
 "shop.tag":"Shop","shop.title":"Spare <span>Parts</span><br>& Accessories",
 "shop.desc":"Full stock of genuine and equivalent parts — all brands, best prices. Contact us on WhatsApp to order or check availability.",
 "shop.searchph":"🔍  Search by part name, brand or reference...",
-"shop.empty":"No parts found for this search.","shop.nolistings":"No listings available at the moment.","shop.wabar":"Can't find the part you need? <span>Contact us directly</span> — we source everything.",
+"shop.empty":"No parts found for this search.","shop.nolistings":"No listings available at the moment.","shop.loading":"Loading listings...","shop.apiOffline":"Cannot reach the API. Make sure the backend server is online.","shop.wabar":"Can't find the part you need? <span>Contact us directly</span> — we source everything.",
 "shop.wacta":"📲 Ask on WhatsApp","shop.order":"📲 Order","shop.ref":"Ref:",
 "shop.badge.new":"New","shop.badge.promo":"Sale","shop.badge.stock":"In Stock",
 "shop.cats":["All","Engine","Brakes","Gearbox","Electrics","Cars"],
@@ -1037,7 +1040,7 @@ ar:{
 "shop.tag":"المتجر","shop.title":"قطع الغيار<br>و<span>الإكسسوارات</span>",
 "shop.desc":"مخزون كامل من القطع الأصلية والبديلة — جميع الماركات، أفضل الأسعار. تواصل معنا عبر واتساب للطلب أو التحقق من التوفر.",
 "shop.searchph":"🔍  ابحث عن قطعة أو ماركة أو مرجع...",
-"shop.empty":"لم يتم العثور على قطع لهذا البحث.","shop.nolistings":"لا توجد إعلانات متاحة حالياً.","shop.wabar":"لم تجد القطعة التي تحتاجها؟ <span>تواصل معنا مباشرة</span> — نوفر جميع القطع.",
+"shop.empty":"لم يتم العثور على قطع لهذا البحث.","shop.nolistings":"لا توجد إعلانات متاحة حالياً.","shop.loading":"جاري تحميل الإعلانات...","shop.apiOffline":"تعذر الاتصال بالخادم. تأكد من أن API يعمل.","shop.wabar":"لم تجد القطعة التي تحتاجها؟ <span>تواصل معنا مباشرة</span> — نوفر جميع القطع.",
 "shop.wacta":"📲 اطلب عبر واتساب","shop.order":"📲 اطلب","shop.ref":"المرجع:",
 "shop.badge.new":"جديد","shop.badge.promo":"عرض","shop.badge.stock":"متوفر",
 "shop.cats":["الكل","المحرك","الفرامل","علبة التروس","الكهرباء","السيارات"],
@@ -1096,9 +1099,13 @@ const REVIEWS=[
 const MARQUE_COLOR={Bosch:'#E8192C',Gates:'#0066CC',Mahle:'#1A7F3C',NGK:'#FF6B00',SKF:'#00427A',Brembo:'#E8192C',Ferodo:'#555',TRW:'#003087',ATE:'#C00',ZF:'#1C3272',Sachs:'#E30613',LuK:'#005CA9',Valeo:'#00A0DF',Varta:'#1A3C85',Monroe:'#FF6B00',Febi:'#D40000',Moog:'#F60',Mann:'#003366',WIX:'#0056A2',TYC:'#2B5BAA','Magneti Marelli':'#003087',OEM:'#555',BMW:'#0066B1',Renault:'#FFCC00',Peugeot:'#0055A4',GME:'#E8192C'};
 const CAT_KEYS=['all','moteur','freinage','boite','electricite','voitures'];
 
-const API_BASE=(location.hostname==='localhost'||location.hostname==='127.0.0.1')
-  ?'http://localhost:3001'
-  :`${location.protocol}//${location.hostname}:3001`;
+const API_BASE=(()=>{
+  const meta=document.querySelector('meta[name="gme-api"]')?.content?.trim();
+  const h=location.hostname;
+  if(h==='localhost'||h==='127.0.0.1')return'http://localhost:3001';
+  if(meta)return meta.replace(/\/$/,'');
+  return location.origin;
+})();
 
 // ── Contact (update whatsapp with your number: 212 + 9 digits, no + or spaces)
 const SITE={
@@ -1128,7 +1135,9 @@ function applySiteContact(){
   });
 }
 
-let apiPieces=[],apiVoitures=[],listingsLoaded=false;
+let apiPieces=[],apiVoitures=[],listingsLoaded=false,apiReachable=true;
+
+function setEmptyState(el,msg,show){if(!el)return;el.textContent=msg;el.classList.toggle('is-visible',show);}
 
 const PART_ICONS={moteur:'⚙️',freinage:'🔴',boite:'🤖',electricite:'⚡',default:'🔩'};
 
@@ -1159,24 +1168,27 @@ function mapApiPiece(l){
 function getListingImage(l){return l.images&&l.images.length?l.images[0]:null;}
 
 async function loadListings(){
+  apiReachable=true;
   try{
     const[pr,vr]=await Promise.all([
       fetch(`${API_BASE}/api/listings?category=piece&limit=50`),
       fetch(`${API_BASE}/api/listings?category=voiture&limit=50`)
     ]);
+    if(!pr.ok||!vr.ok)throw new Error('API response not OK');
     const pd=await pr.json(),vd=await vr.json();
     if(pd.success)apiPieces=(pd.listings||[]).filter(l=>l.isActive!==false).map(mapApiPiece);
     if(vd.success)apiVoitures=(vd.listings||[]).filter(l=>l.isActive!==false);
-  }catch(e){console.warn('GME API unavailable',e);}
-  finally{listingsLoaded=true;renderVoituresSection();}
+  }catch(e){console.warn('GME API unavailable',e);apiReachable=false;apiPieces=[];apiVoitures=[];}
+  finally{listingsLoaded=true;renderVoituresSection();filterBoutique();}
 }
 
 function renderVoituresSection(){
   const grid=document.getElementById('voituresGrid'),empty=document.getElementById('voituresEmpty');
   if(!grid)return;
-  if(!listingsLoaded){grid.innerHTML='';if(empty)empty.style.display='none';return;}
-  if(!apiVoitures.length){grid.innerHTML='';if(empty){empty.textContent=t('shop.nolistings');empty.style.display='block';}return;}
-  if(empty)empty.style.display='none';
+  if(!listingsLoaded){grid.innerHTML='';setEmptyState(empty,t('shop.loading'),false);return;}
+  if(!apiReachable){grid.innerHTML='';setEmptyState(empty,t('shop.apiOffline'),true);return;}
+  if(!apiVoitures.length){grid.innerHTML='';setEmptyState(empty,t('shop.nolistings'),true);return;}
+  setEmptyState(empty,'',false);
   grid.innerHTML=apiVoitures.map(buildVoitureCard).join('');
 }
 
@@ -1259,7 +1271,8 @@ let activeCat='all',searchVal='';
 function filterBoutique(){
   const grid=document.getElementById('piecesGrid'),empty=document.getElementById('piecesEmpty');
   if(!grid||!empty)return;
-  if(!listingsLoaded){grid.innerHTML='';empty.style.display='none';return;}
+  if(!listingsLoaded){grid.innerHTML='';setEmptyState(empty,t('shop.loading'),true);return;}
+  if(!apiReachable){grid.innerHTML='';setEmptyState(empty,t('shop.apiOffline'),true);return;}
 
   const noResults=t('shop.empty');
   const noListings=t('shop.nolistings');
@@ -1267,8 +1280,8 @@ function filterBoutique(){
   if(activeCat==='voitures'){
     let list=[...apiVoitures];
     if(searchVal.trim()){const q=searchVal.toLowerCase();list=list.filter(v=>{const d=v.details||{};return(v.title+v.description+v.city+(d.brand||'')+(d.model||'')).toLowerCase().includes(q);});}
-    if(!list.length){empty.textContent=searchVal.trim()||apiVoitures.length?noResults:noListings;grid.innerHTML='';empty.style.display='block';return;}
-    empty.style.display='none';grid.innerHTML=list.map(buildVoitureCard).join('');
+    if(!list.length){setEmptyState(empty,searchVal.trim()||apiVoitures.length?noResults:noListings,true);grid.innerHTML='';return;}
+    setEmptyState(empty,'',false);grid.innerHTML=list.map(buildVoitureCard).join('');
     return;
   }
 
@@ -1280,16 +1293,16 @@ function filterBoutique(){
       voitures=voitures.filter(v=>{const d=v.details||{};return(v.title+v.description+v.city+(d.brand||'')+(d.model||'')).toLowerCase().includes(q);});
     }
     const html=[...pieces.map(buildPieceCard),...voitures.map(buildVoitureCard)].join('');
-    if(!pieces.length&&!voitures.length){empty.textContent=searchVal.trim()||(apiPieces.length||apiVoitures.length)?noResults:noListings;grid.innerHTML='';empty.style.display='block';return;}
-    empty.style.display='none';grid.innerHTML=html;
+    if(!pieces.length&&!voitures.length){setEmptyState(empty,searchVal.trim()||(apiPieces.length||apiVoitures.length)?noResults:noListings,true);grid.innerHTML='';return;}
+    setEmptyState(empty,'',false);grid.innerHTML=html;
     return;
   }
 
   let list=[...apiPieces];
   if(activeCat!=='all')list=list.filter(p=>p.cat===activeCat);
   if(searchVal.trim()){const q=searchVal.toLowerCase();list=list.filter(p=>(p.nameFr+p.nameEn+p.nameAr+p.marque+p.ref+p.tags.join(' ')+p.compat).toLowerCase().includes(q));}
-  if(!list.length){empty.textContent=searchVal.trim()||apiPieces.length?noResults:noListings;grid.innerHTML='';empty.style.display='block';return;}
-  empty.style.display='none';grid.innerHTML=list.map(buildPieceCard).join('');
+  if(!list.length){setEmptyState(empty,searchVal.trim()||apiPieces.length?noResults:noListings,true);grid.innerHTML='';return;}
+  setEmptyState(empty,'',false);grid.innerHTML=list.map(buildPieceCard).join('');
 }
 
 function renderFooterSvcs(){
@@ -1358,7 +1371,7 @@ document.getElementById('pieceSearch').addEventListener('input',e=>{searchVal=e.
 window.addEventListener('resize',()=>initSlider());
 
 // INIT
-loadListings().then(()=>{filterBoutique();renderVoituresSection();});
+loadListings();
 applyTranslations();
 applySiteContact();
 </script>

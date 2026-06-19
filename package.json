@@ -1,0 +1,7 @@
+{
+  "name": "gme-website",
+  "private": true,
+  "dependencies": {
+    "mongodb": "^6.12.0"
+  }
+}
