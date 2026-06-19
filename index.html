@@ -606,6 +606,20 @@ body[dir="rtl"] .lang-btn{font-family:var(--font-arabic);letter-spacing:0;text-t
   </div>
 </section>
 
+<!-- VOITURES A VENDRE (API) -->
+<section id="voitures-vente" style="background:var(--black)">
+  <div class="container">
+    <div style="text-align:center" class="reveal">
+      <span class="section-tag" data-i18n="cars.tag">Annonces</span>
+      <h2 class="section-title" data-i18n-html="cars.title">Voitures <span>à Vendre</span></h2>
+      <div class="divider" style="margin:1.5rem auto"></div>
+      <p class="section-subtitle" style="margin:0 auto" data-i18n="cars.desc">Véhicules d'occasion disponibles chez GME — annonces réelles mises à jour depuis notre base.</p>
+    </div>
+    <div class="pieces-grid reveal" id="voituresGrid" style="margin-top:2.5rem"></div>
+    <div class="pieces-empty" id="voituresEmpty" data-i18n="shop.nolistings">Aucune annonce disponible pour le moment.</div>
+  </div>
+</section>
+
 <!-- WHY GME -->
 <section id="why" style="background:var(--black-2)">
   <div class="container">
@@ -938,6 +952,7 @@ fr:{
 "svc.desc":"De la simple vidange au diagnostic électronique complexe, GME couvre l'ensemble de vos besoins automobiles.",
 "veh.tag":"Véhicules Pris en Charge","veh.title":"Tous Types de<br><span>Véhicules</span>",
 "veh.desc":"Que vous conduisiez une citadine, un SUV, un 4×4 ou une caravane, GME dispose des équipements et compétences adaptés.",
+"cars.tag":"Annonces","cars.title":"Voitures <span>à Vendre</span>","cars.desc":"Véhicules d'occasion disponibles chez GME — annonces réelles depuis notre base.",
 "why.tag":"Pourquoi GME","why.title":"Votre Confiance,<br>Notre <span>Engagement</span>",
 "gal.tag":"Galerie","gal.title":"Notre <span>Atelier</span><br>en Images",
 "gal.img1":"Atelier Principal","gal.img2":"Diagnostic","gal.img3":"Boîte de Vitesses","gal.img4":"Pièces de Rechange","gal.img5":"Camions & Bus",
@@ -976,6 +991,7 @@ en:{
 "svc.desc":"From a simple oil change to complex electronic diagnostics, GME covers all your automotive needs.",
 "veh.tag":"Vehicles We Service","veh.title":"All Types of<br><span>Vehicles</span>",
 "veh.desc":"Whether you drive a city car, SUV, 4×4 or caravan, GME has the equipment and expertise to handle it.",
+"cars.tag":"Listings","cars.title":"Cars <span>For Sale</span>","cars.desc":"Used vehicles available at GME — real listings from our database.",
 "why.tag":"Why GME","why.title":"Your Trust,<br>Our <span>Commitment</span>",
 "gal.tag":"Gallery","gal.title":"Our <span>Workshop</span><br>in Pictures",
 "gal.img1":"Main Workshop","gal.img2":"Diagnostics","gal.img3":"Gearbox","gal.img4":"Spare Parts","gal.img5":"Trucks & Buses",
@@ -1014,6 +1030,7 @@ ar:{
 "svc.desc":"من تغيير الزيت البسيط إلى أعقد عمليات التشخيص الإلكتروني، GME يغطي جميع احتياجاتك.",
 "veh.tag":"المركبات التي نخدمها","veh.title":"جميع أنواع<br><span>المركبات</span>",
 "veh.desc":"سواء كنت تقود سيارة صغيرة أو دفع رباعي أو كارافان، لدى GME المعدات والخبرة اللازمة.",
+"cars.tag":"إعلانات","cars.title":"سيارات <span>للبيع</span>","cars.desc":"سيارات مستعملة متوفرة لدى GME — إعلانات حقيقية من قاعدة بياناتنا.",
 "why.tag":"لماذا GME","why.title":"ثقتك<br><span>التزامنا</span>",
 "gal.tag":"المعرض","gal.title":"<span>ورشتنا</span><br>بالصور",
 "gal.img1":"الورشة الرئيسية","gal.img2":"التشخيص","gal.img3":"علبة التروس","gal.img4":"قطع الغيار","gal.img5":"الشاحنات والحافلات",
@@ -1079,7 +1096,9 @@ const REVIEWS=[
 const MARQUE_COLOR={Bosch:'#E8192C',Gates:'#0066CC',Mahle:'#1A7F3C',NGK:'#FF6B00',SKF:'#00427A',Brembo:'#E8192C',Ferodo:'#555',TRW:'#003087',ATE:'#C00',ZF:'#1C3272',Sachs:'#E30613',LuK:'#005CA9',Valeo:'#00A0DF',Varta:'#1A3C85',Monroe:'#FF6B00',Febi:'#D40000',Moog:'#F60',Mann:'#003366',WIX:'#0056A2',TYC:'#2B5BAA','Magneti Marelli':'#003087',OEM:'#555',BMW:'#0066B1',Renault:'#FFCC00',Peugeot:'#0055A4',GME:'#E8192C'};
 const CAT_KEYS=['all','moteur','freinage','boite','electricite','voitures'];
 
-const API_BASE='http://localhost:3001';
+const API_BASE=(location.hostname==='localhost'||location.hostname==='127.0.0.1')
+  ?'http://localhost:3001'
+  :`${location.protocol}//${location.hostname}:3001`;
 
 // ── Contact (update whatsapp with your number: 212 + 9 digits, no + or spaces)
 const SITE={
@@ -1149,7 +1168,16 @@ async function loadListings(){
     if(pd.success)apiPieces=(pd.listings||[]).filter(l=>l.isActive!==false).map(mapApiPiece);
     if(vd.success)apiVoitures=(vd.listings||[]).filter(l=>l.isActive!==false);
   }catch(e){console.warn('GME API unavailable',e);}
-  finally{listingsLoaded=true;}
+  finally{listingsLoaded=true;renderVoituresSection();}
+}
+
+function renderVoituresSection(){
+  const grid=document.getElementById('voituresGrid'),empty=document.getElementById('voituresEmpty');
+  if(!grid)return;
+  if(!listingsLoaded){grid.innerHTML='';if(empty)empty.style.display='none';return;}
+  if(!apiVoitures.length){grid.innerHTML='';if(empty){empty.textContent=t('shop.nolistings');empty.style.display='block';}return;}
+  if(empty)empty.style.display='none';
+  grid.innerHTML=apiVoitures.map(buildVoitureCard).join('');
 }
 
 let LANG='fr';
@@ -1164,7 +1192,7 @@ function applyTranslations(){
   document.querySelectorAll('[data-i18n-html]').forEach(el=>{const v=t(el.dataset.i18nHtml);if(v)el.innerHTML=v;});
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{const v=t(el.dataset.i18nPlaceholder);if(v)el.placeholder=v;});
   document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.dataset.lang===LANG));
-  renderServices();renderVehicles();renderWhy();renderReviews();renderFilterTabs();filterBoutique();renderFooterSvcs();
+  renderServices();renderVehicles();renderWhy();renderReviews();renderFilterTabs();filterBoutique();renderVoituresSection();renderFooterSvcs();
 }
 
 function renderServices(){
@@ -1173,7 +1201,7 @@ function renderServices(){
 }
 function renderVehicles(){
   const g=document.getElementById('vehiclesGrid');if(!g)return;
-  g.innerHTML=VEHICLES.map((v,i)=>{const name=LANG==='ar'?v.ar:LANG==='en'?v.en:v.fr;return`<div class="vehicle-card reveal visible" style="transition-delay:${(i*.1+.1).toFixed(1)}s"><div class="vehicle-img"><img src="${v.img}" alt="${name}" loading="lazy"></div><div class="vehicle-name">${name}</div></div>`;}).join('');
+  g.innerHTML=VEHICLES.map((v,i)=>{const name=LANG==='ar'?v.ar:LANG==='en'?v.en:v.fr;const href=i===0?'#voitures-vente':'#';return`<a href="${href}" class="vehicle-card reveal visible" style="transition-delay:${(i*.1+.1).toFixed(1)}s;text-decoration:none;color:inherit"><div class="vehicle-img"><img src="${v.img}" alt="${name}" loading="lazy"></div><div class="vehicle-name">${name}</div></a>`;}).join('');
 }
 function renderWhy(){
   const g=document.getElementById('whyGrid');if(!g)return;
@@ -1241,6 +1269,19 @@ function filterBoutique(){
     if(searchVal.trim()){const q=searchVal.toLowerCase();list=list.filter(v=>{const d=v.details||{};return(v.title+v.description+v.city+(d.brand||'')+(d.model||'')).toLowerCase().includes(q);});}
     if(!list.length){empty.textContent=searchVal.trim()||apiVoitures.length?noResults:noListings;grid.innerHTML='';empty.style.display='block';return;}
     empty.style.display='none';grid.innerHTML=list.map(buildVoitureCard).join('');
+    return;
+  }
+
+  if(activeCat==='all'){
+    let pieces=[...apiPieces],voitures=[...apiVoitures];
+    if(searchVal.trim()){
+      const q=searchVal.toLowerCase();
+      pieces=pieces.filter(p=>(p.nameFr+p.nameEn+p.nameAr+p.marque+p.ref+p.tags.join(' ')+p.compat).toLowerCase().includes(q));
+      voitures=voitures.filter(v=>{const d=v.details||{};return(v.title+v.description+v.city+(d.brand||'')+(d.model||'')).toLowerCase().includes(q);});
+    }
+    const html=[...pieces.map(buildPieceCard),...voitures.map(buildVoitureCard)].join('');
+    if(!pieces.length&&!voitures.length){empty.textContent=searchVal.trim()||(apiPieces.length||apiVoitures.length)?noResults:noListings;grid.innerHTML='';empty.style.display='block';return;}
+    empty.style.display='none';grid.innerHTML=html;
     return;
   }
 
@@ -1317,7 +1358,7 @@ document.getElementById('pieceSearch').addEventListener('input',e=>{searchVal=e.
 window.addEventListener('resize',()=>initSlider());
 
 // INIT
-loadListings().then(()=>{filterBoutique();});
+loadListings().then(()=>{filterBoutique();renderVoituresSection();});
 applyTranslations();
 applySiteContact();
 </script>
