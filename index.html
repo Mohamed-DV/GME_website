@@ -617,7 +617,7 @@ body[dir="rtl"] .lang-btn{font-family:var(--font-arabic);letter-spacing:0;text-t
       <div class="divider" style="margin:1.5rem auto"></div>
       <p class="section-subtitle" style="margin:0 auto" data-i18n="cars.desc">Véhicules d'occasion disponibles chez GME — annonces réelles mises à jour depuis notre base.</p>
     </div>
-    <div class="pieces-grid reveal" id="voituresGrid" style="margin-top:2.5rem"></div>
+    <div class="pieces-grid" id="voituresGrid" style="margin-top:2.5rem"></div>
     <div class="pieces-empty" id="voituresEmpty" data-i18n="shop.nolistings">Aucune annonce disponible pour le moment.</div>
   </div>
 </section>
@@ -787,7 +787,7 @@ body[dir="rtl"] .lang-btn{font-family:var(--font-arabic);letter-spacing:0;text-t
     </div>
 
     <!-- GRID -->
-    <div class="pieces-grid reveal" id="piecesGrid"></div>
+    <div class="pieces-grid" id="piecesGrid"></div>
     <div class="pieces-empty" id="piecesEmpty" data-i18n="shop.empty">Aucune pièce trouvée pour cette recherche.</div>
 
     <!-- WA BAR -->
@@ -1166,19 +1166,59 @@ function mapApiPiece(l){
 
 function getListingImage(l){return l.images&&l.images.length?l.images[0]:null;}
 
+function revealListingGrids(){
+  ['piecesGrid','voituresGrid'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.classList.add('visible');
+  });
+}
+
+async function fetchListings(category){
+  const url=`${API_BASE}/api/listings?category=${category}&limit=50`;
+  let lastErr;
+  for(let attempt=0;attempt<4;attempt++){
+    try{
+      const r=await fetch(url);
+      if(!r.ok)throw new Error('HTTP '+r.status);
+      const d=await r.json();
+      if(d.success)return d.listings||[];
+      throw new Error('API error');
+    }catch(e){
+      lastErr=e;
+      if(attempt<3)await new Promise(res=>setTimeout(res,1500*(attempt+1)));
+    }
+  }
+  throw lastErr;
+}
+
 async function loadListings(){
   apiReachable=true;
+  let piecesOk=false,voituresOk=false;
   try{
-    const[pr,vr]=await Promise.all([
-      fetch(`${API_BASE}/api/listings?category=piece&limit=50`),
-      fetch(`${API_BASE}/api/listings?category=voiture&limit=50`)
+    const[pr,vr]=await Promise.allSettled([
+      fetchListings('piece'),
+      fetchListings('voiture')
     ]);
-    if(!pr.ok||!vr.ok)throw new Error('API response not OK');
-    const pd=await pr.json(),vd=await vr.json();
-    if(pd.success)apiPieces=(pd.listings||[]).filter(l=>l.isActive!==false).map(mapApiPiece);
-    if(vd.success)apiVoitures=(vd.listings||[]).filter(l=>l.isActive!==false);
-  }catch(e){console.warn('GME API unavailable',e);apiReachable=false;apiPieces=[];apiVoitures=[];}
-  finally{listingsLoaded=true;renderVoituresSection();filterBoutique();}
+    if(pr.status==='fulfilled'){
+      apiPieces=pr.value.filter(l=>l.isActive!==false).map(mapApiPiece);
+      piecesOk=true;
+    }
+    if(vr.status==='fulfilled'){
+      apiVoitures=vr.value.filter(l=>l.isActive!==false);
+      voituresOk=true;
+    }
+    if(!piecesOk&&!voituresOk)throw new Error('API unavailable');
+  }catch(e){
+    console.warn('GME API unavailable',e);
+    apiReachable=false;
+    apiPieces=[];
+    apiVoitures=[];
+  }finally{
+    listingsLoaded=true;
+    revealListingGrids();
+    renderVoituresSection();
+    filterBoutique();
+  }
 }
 
 function renderVoituresSection(){
@@ -1369,10 +1409,14 @@ document.querySelectorAll('.count[data-target]').forEach(el=>cntObs.observe(el))
 document.getElementById('pieceSearch').addEventListener('input',e=>{searchVal=e.target.value;filterBoutique();});
 window.addEventListener('resize',()=>initSlider());
 
-// INIT
-loadListings();
-applyTranslations();
-applySiteContact();
+// INIT — load listings first, then render page (no refresh needed)
+(async function init(){
+  filterBoutique();
+  renderVoituresSection();
+  await loadListings();
+  applyTranslations();
+  applySiteContact();
+})();
 </script>
 </body>
 </html>
