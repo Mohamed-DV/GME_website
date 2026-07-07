@@ -16,3 +16,15 @@
   from = "/api/listings/*"
   to = "/.netlify/functions/listings"
   status = 200
+
+# Real image URL for link previews (decoded from stored base64)
+[[redirects]]
+  from = "/api/listing-image"
+  to = "/.netlify/functions/listing-image"
+  status = 200
+
+# Shareable listing pages with Open Graph preview (thumbnail in WhatsApp/Facebook)
+[[redirects]]
+  from = "/s/*"
+  to = "/.netlify/functions/share"
+  status = 200

@@ -356,6 +356,12 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);paddin
 .lm-btn.call:hover{background:var(--red-dark);transform:translateY(-2px)}
 .lm-btn.mail{background:var(--black-4);color:var(--text);border:1px solid rgba(255,255,255,.12)}
 .lm-btn.mail:hover{border-color:rgba(255,255,255,.3)}
+.lm-btn.share{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.25)}
+.lm-btn.share:hover{background:rgba(255,255,255,.08);border-color:#fff}
+.lm-actions{display:flex;gap:.6rem}
+.lm-actions .lm-btn{flex:1}
+.share-toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(20px);z-index:3000;background:#00C864;color:#fff;font-family:var(--font-heading);font-size:.85rem;font-weight:700;letter-spacing:1px;padding:.8rem 1.5rem;border-radius:4px;box-shadow:0 8px 24px rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:all .35s}
+.share-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .lm-meta{font-size:.72rem;color:var(--text-muted);margin-top:.9rem;display:flex;gap:1rem;flex-wrap:wrap}
 @media(max-width:760px){.lm-grid{grid-template-columns:1fr}.lm-main-img{min-height:220px}.lm-title{font-size:1.35rem}}
 body[dir="rtl"] .lm-brand,body[dir="rtl"] .lm-spec-label,body[dir="rtl"] .lm-desc-title{font-family:var(--font-arabic)!important;letter-spacing:0!important}
@@ -977,6 +983,8 @@ body[dir="rtl"] .lang-btn{font-family:var(--font-arabic);letter-spacing:0;text-t
   </div>
 </div>
 
+<div class="share-toast" id="shareToast"></div>
+
 <!-- FLOATING BUTTONS -->
 <div class="floating-btns">
   <a href="https://www.messenger.com/" target="_blank" class="float-btn" style="background:#0084FF;font-size:1.2rem" title="Messenger">💬</a>
@@ -1019,7 +1027,7 @@ fr:{
 "shop.wacta":"📲 Demander sur WhatsApp","shop.order":"📲 Commander","shop.ref":"Réf:",
 "shop.badge.new":"Nouveau","shop.badge.promo":"Promo","shop.badge.stock":"En Stock",
 "shop.cats":["Tout","Moteur","Freinage","Boîte","Électricité","Voitures"],
-"shop.details":"Voir détails","lm.description":"Description","lm.call":"Appeler","lm.whatsapp":"WhatsApp","lm.email":"Envoyer un email","lm.nodesc":"Aucune description fournie.","lm.views":"vues","lm.posted":"Publié le","lm.contact":"Contactez GME",
+"shop.details":"Voir détails","lm.description":"Description","lm.call":"Appeler","lm.whatsapp":"WhatsApp","lm.email":"Envoyer un email","lm.nodesc":"Aucune description fournie.","lm.views":"vues","lm.posted":"Publié le","lm.contact":"Contactez GME","lm.share":"Partager","lm.copied":"Lien copié !",
 "lm.brand":"Marque","lm.model":"Modèle","lm.year":"Année","lm.mileage":"Kilométrage","lm.fuelType":"Carburant","lm.condition":"État","lm.partCategory":"Catégorie","lm.compatibility":"Compatibilité","lm.city":"Ville","lm.price":"Prix",
 "rev.tag":"Témoignages","rev.title":"Ce Que Disent<br>Nos <span>Clients</span>",
 "ct.tag":"Contact","ct.title":"Prenez<br><span>Rendez-Vous</span>",
@@ -1058,7 +1066,7 @@ en:{
 "shop.searchph":"🔍  Search by part name, brand or reference...",
 "shop.empty":"No parts found for this search.","shop.nolistings":"No listings available at the moment.","shop.loading":"Loading listings...","shop.apiOffline":"Cannot reach the API. Make sure the backend server is online.","shop.wabar":"Can't find the part you need? <span>Contact us directly</span> — we source everything.",
 "shop.wacta":"📲 Ask on WhatsApp","shop.order":"📲 Order","shop.ref":"Ref:",
-"shop.details":"View details","lm.description":"Description","lm.call":"Call","lm.whatsapp":"WhatsApp","lm.email":"Send email","lm.nodesc":"No description provided.","lm.views":"views","lm.posted":"Posted on","lm.contact":"Contact GME",
+"shop.details":"View details","lm.description":"Description","lm.call":"Call","lm.whatsapp":"WhatsApp","lm.email":"Send email","lm.nodesc":"No description provided.","lm.views":"views","lm.posted":"Posted on","lm.contact":"Contact GME","lm.share":"Share","lm.copied":"Link copied!",
 "lm.brand":"Brand","lm.model":"Model","lm.year":"Year","lm.mileage":"Mileage","lm.fuelType":"Fuel","lm.condition":"Condition","lm.partCategory":"Category","lm.compatibility":"Compatibility","lm.city":"City","lm.price":"Price",
 "shop.badge.new":"New","shop.badge.promo":"Sale","shop.badge.stock":"In Stock",
 "shop.cats":["All","Engine","Brakes","Gearbox","Electrics","Cars"],
@@ -1099,7 +1107,7 @@ ar:{
 "shop.searchph":"🔍  ابحث عن قطعة أو ماركة أو مرجع...",
 "shop.empty":"لم يتم العثور على قطع لهذا البحث.","shop.nolistings":"لا توجد إعلانات متاحة حالياً.","shop.loading":"جاري تحميل الإعلانات...","shop.apiOffline":"تعذر الاتصال بالخادم. تأكد من أن API يعمل.","shop.wabar":"لم تجد القطعة التي تحتاجها؟ <span>تواصل معنا مباشرة</span> — نوفر جميع القطع.",
 "shop.wacta":"📲 اطلب عبر واتساب","shop.order":"📲 اطلب","shop.ref":"المرجع:",
-"shop.details":"عرض التفاصيل","lm.description":"الوصف","lm.call":"اتصل","lm.whatsapp":"واتساب","lm.email":"إرسال بريد","lm.nodesc":"لا يوجد وصف.","lm.views":"مشاهدة","lm.posted":"نُشر في","lm.contact":"تواصل مع GME",
+"shop.details":"عرض التفاصيل","lm.description":"الوصف","lm.call":"اتصل","lm.whatsapp":"واتساب","lm.email":"إرسال بريد","lm.nodesc":"لا يوجد وصف.","lm.views":"مشاهدة","lm.posted":"نُشر في","lm.contact":"تواصل مع GME","lm.share":"مشاركة","lm.copied":"تم نسخ الرابط!",
 "lm.brand":"الماركة","lm.model":"الموديل","lm.year":"السنة","lm.mileage":"الكيلومترات","lm.fuelType":"الوقود","lm.condition":"الحالة","lm.partCategory":"الفئة","lm.compatibility":"التوافق","lm.city":"المدينة","lm.price":"السعر",
 "shop.badge.new":"جديد","shop.badge.promo":"عرض","shop.badge.stock":"متوفر",
 "shop.cats":["الكل","المحرك","الفرامل","علبة التروس","الكهرباء","السيارات"],
@@ -1424,17 +1432,68 @@ function openListingModal(id){
     <div class="lm-desc">${l.description?l.description.replace(/</g,'&lt;'):t('lm.nodesc')}</div>
     <div class="lm-contact">
       <a href="${waUrl(waText)}" target="_blank" class="lm-btn wa">📲 ${t('lm.whatsapp')} — ${SITE.phone}</a>
-      <a href="tel:${SITE.tel}" class="lm-btn call">📞 ${t('lm.call')} — ${SITE.phone}</a>
+      <div class="lm-actions">
+        <a href="tel:${SITE.tel}" class="lm-btn call">📞 ${t('lm.call')}</a>
+        <button type="button" class="lm-btn share" data-share="${l._id}">🔗 ${t('lm.share')}</button>
+      </div>
       <a href="mailto:${SITE.email}?subject=${encodeURIComponent(l.title)}" class="lm-btn mail">✉️ ${t('lm.email')}</a>
     </div>
     <div class="lm-meta">${posted?`<span>${t('lm.posted')} ${posted}</span>`:''}${l.views!=null?`<span>${l.views} ${t('lm.views')}</span>`:''}</div>`;
 
   overlay.classList.add('open');
   document.body.style.overflow='hidden';
+  try{history.replaceState(null,'',location.pathname+'?item='+id);}catch(e){}
 }
 function closeListingModal(){
   document.getElementById('listingModal').classList.remove('open');
   document.body.style.overflow='';
+  try{history.replaceState(null,'',location.pathname);}catch(e){}
+}
+
+function listingShareUrl(id){
+  // On production, use the /s/:id page that renders link-preview meta tags.
+  // Locally there is no serverless layer, so fall back to the deep link.
+  const h=location.hostname;
+  if(h==='localhost'||h==='127.0.0.1')return `${location.origin}${location.pathname}?item=${id}`;
+  return `${location.origin}/s/${id}`;
+}
+
+function dataUrlToFile(dataUrl,filename){
+  const parts=dataUrl.split(',');
+  const mime=(parts[0].match(/:(.*?);/)||[])[1]||'image/jpeg';
+  const bin=atob(parts[1]);
+  const arr=new Uint8Array(bin.length);
+  for(let i=0;i<bin.length;i++)arr[i]=bin.charCodeAt(i);
+  return new File([arr],filename,{type:mime});
+}
+
+function showShareToast(msg){
+  const el=document.getElementById('shareToast');
+  if(!el)return;
+  el.textContent=msg;el.classList.add('show');
+  clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),2200);
+}
+
+async function shareListing(id){
+  const l=LISTING_MAP[id];if(!l)return;
+  const d=l.details||{};
+  const url=listingShareUrl(id);
+  const priceStr=d.price!=null?` — ${Number(d.price).toLocaleString('fr-FR')} MAD`:'';
+  const title=`${l.title}${priceStr}`;
+  const text=`${l.title}${d.brand?' · '+d.brand:''}${priceStr}${l.description?'\n'+l.description:''}\n\nGME Automobile\n${url}`;
+  const imgs=(l.images||[]).filter(Boolean);
+  try{
+    if(navigator.canShare&&imgs.length&&imgs[0].startsWith('data:')){
+      const file=dataUrlToFile(imgs[0],((l.title||'gme').replace(/\s+/g,'-'))+'.jpg');
+      if(navigator.canShare({files:[file]})){
+        await navigator.share({title,text:`${l.title}${priceStr}\n\nGME Automobile\n${url}`,files:[file]});
+        return;
+      }
+    }
+    if(navigator.share){await navigator.share({title,text,url});return;}
+  }catch(e){if(e&&e.name==='AbortError')return;}
+  try{await navigator.clipboard.writeText(url);showShareToast(t('lm.copied'));}
+  catch(e){window.prompt(t('lm.share'),url);}
 }
 
 let activeCat='all',searchVal='';
@@ -1541,6 +1600,8 @@ document.getElementById('pieceSearch').addEventListener('input',e=>{searchVal=e.
 
 // Listing detail modal — open on card click (ignore the WhatsApp order button)
 document.addEventListener('click',e=>{
+  const shareBtn=e.target.closest('[data-share]');
+  if(shareBtn){e.preventDefault();e.stopPropagation();shareListing(shareBtn.dataset.share);return;}
   if(e.target.closest('.piece-cta'))return;
   const card=e.target.closest('.piece-card[data-id]');
   if(card){openListingModal(card.dataset.id);}
@@ -1557,6 +1618,9 @@ window.addEventListener('resize',()=>initSlider());
   await loadListings();
   applyTranslations();
   applySiteContact();
+  // Deep link: open the shared listing automatically
+  const shared=new URLSearchParams(location.search).get('item');
+  if(shared&&LISTING_MAP[shared])openListingModal(shared);
 })();
 </script>
 </body>
